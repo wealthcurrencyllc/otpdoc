@@ -1,217 +1,6463 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
-    }
-  }
+	"openapi": "3.0.3",
+	"info": {
+		"title": "admin documentation",
+		"version": "1.0.0"
+	},
+	"paths": {
+		"/auth/all-admins": {
+			"get": {
+				"description": "Endpoint documentation for GET /auth/all-admins",
+				"operationId": "get /auth/all-admins",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"active": true,
+												"email": "wealthcurrencyllc+100@gmail.com",
+												"phoneNumber": "12345678901",
+												"roles": [
+													"admin"
+												],
+												"suspended": false,
+												"username": "onehundred"
+											},
+											{
+												"active": true,
+												"email": "wealthcurrencyllc+1000@gmail.com",
+												"phoneNumber": "+2348138686013",
+												"roles": [
+													"admin"
+												],
+												"suspended": false,
+												"username": "onethousand"
+											},
+											{
+												"active": true,
+												"email": "rorewole+admin@gmail.com",
+												"phoneNumber": "+234000000000",
+												"roles": [
+													"admin",
+													"superAdmin"
+												],
+												"suspended": false,
+												"username": "admin"
+											}
+										],
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"properties": {
+													"active": {
+														"type": "boolean"
+													},
+													"email": {
+														"type": "string"
+													},
+													"phoneNumber": {
+														"type": "string"
+													},
+													"roles": {
+														"items": {
+															"type": "string"
+														},
+														"type": "array"
+													},
+													"suspended": {
+														"type": "boolean"
+													},
+													"username": {
+														"type": "string"
+													}
+												},
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /auth/all-admins",
+				"tags": [
+					"auth"
+				]
+			}
+		},
+		"/auth/all-users": {
+			"get": {
+				"description": "Endpoint documentation for GET /auth/all-users",
+				"operationId": "get /auth/all-users",
+				"parameters": [
+					{
+						"description": "username",
+						"example": "changr",
+						"in": "query",
+						"name": "username",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"active": false,
+												"email": "rorewole+4@gmail.com",
+												"phoneNumber": "+2348138686012",
+												"roles": [
+													"user"
+												],
+												"suspended": false,
+												"username": "changr"
+											}
+										],
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"properties": {
+													"active": {
+														"type": "boolean"
+													},
+													"email": {
+														"type": "string"
+													},
+													"phoneNumber": {
+														"type": "string"
+													},
+													"roles": {
+														"items": {
+															"type": "string"
+														},
+														"type": "array"
+													},
+													"suspended": {
+														"type": "boolean"
+													},
+													"username": {
+														"type": "string"
+													}
+												},
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Invalid or expired token"
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 403"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /auth/all-users",
+				"tags": [
+					"auth"
+				]
+			}
+		},
+		"/auth/complete-registration": {
+			"post": {
+				"description": "Endpoint documentation for POST /auth/complete-registration",
+				"operationId": "post /auth/complete-registration",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"email": "wealthcurrencyllc+1000@gmail.com",
+									"otp": "3152",
+									"password": "1234567"
+								},
+								"properties": {
+									"email": {
+										"description": "email",
+										"type": "string"
+									},
+									"otp": {
+										"description": "otp",
+										"type": "string"
+									},
+									"password": {
+										"description": "password",
+										"type": "string"
+									}
+								},
+								"required": [
+									"email",
+									"password",
+									"otp"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYWx0aGN1cnJlbmN5bGxjKzEwMDBAZ21haWwuY29tIiwicm9sZXMiOlsiYWRtaW4iXSwiYXV0aGVudGljYXRpb25UeXBlIjoiUEFTU1dPUkQiLCJ1c2VySWQiOiJ3ZWFsdGhjdXJyZW5jeWxsYysxMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc0NDQwMTg0NiwiZXhwIjoxNzQ0NDA1NDQ2LCJpc3MiOiJvdHBkZXYiLCJzdWIiOiJ3ZWFsdGhjdXJyZW5jeWxsYysxMDAwQGdtYWlsLmNvbSIsImp0aSI6IjRjMzhjNWZjLWZlY2EtNGRjOC1hZDk5LTNiZjYwNjZiZThlNyJ9.ObmLO-Yi_Og8ulhQIfhZWGdd_Ef5lNSnWXNxzIKXb_W93kjC7aPKnvCa5VydBnPcu44hwG4USiEvX5UWulBKV2uJPqKspd_xBpkRD-36a8lv5KAJ9Y58e_7ahf4coN9hlLmjUKGByywR_QRZ36a6k9sfoFXcnToi7zlaP1elGFadeZ8azxjc47bF5-yP3Clu3TafhtsyzZhqv_1DqIQfag7RlwNdHnVRGGr9T_qtqXccYlfFEPtHeL3UHzmLAna2X9UBPEo7SVPi_9B5sLyR8_r3jRFHd0yyB27r_2AOJJ1ocF28oXruX4MVDxRJyi24kIFhrzJ2sb4d7ESGQcBxeg",
+										"authenticationType": "PASSWORD",
+										"message": "Logged in successfully",
+										"refresh_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ3ZWFsdGhjdXJyZW5jeWxsYysxMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc0NDQwMTg0NiwiZXhwIjoxNzQ1MDA2NjQ2LCJpc3MiOiJvdHBkZXYiLCJzdWIiOiJ3ZWFsdGhjdXJyZW5jeWxsYysxMDAwQGdtYWlsLmNvbSIsImp0aSI6IjRjMzhjNWZjLWZlY2EtNGRjOC1hZDk5LTNiZjYwNjZiZThlNyJ9.DG8qT_9N4K_5a-6M-hMk6jKtCu7r9tLQcdGAuNgPf-Zzueqr6hTryecUBIclN-_uMDDrBmyxLsbv4yVg4MPKH0Cz0Q7nh79WZv9jkiic6gUs9Z8nvbgLC56atA7v7UPQ0yTdqOROKMxgnmZFrTi9Zmoh9S1Vvbk7nmjsCeZfn26Utc8omw92DpD1YjccJOKOudzcYktnDEwWq7xgempDbEtGJNOA45HGNnpiDXQG2isDJrNkwQjxFsp4p654FwaYPfb1LjxAHZtIZMKhw9FHsSyPzFbcpYzhuI_DYfABewSIbMgkoottfbRHK7UgFm3XQ4h8fXNsvG4grmkSzPw8hw",
+										"success": true,
+										"user": {
+											"active": true,
+											"email": "wealthcurrencyllc+1000@gmail.com",
+											"roles": [
+												"admin"
+											],
+											"suspended": false,
+											"username": "onethousand"
+										}
+									},
+									"properties": {
+										"access_token": {
+											"type": "string"
+										},
+										"authenticationType": {
+											"type": "string"
+										},
+										"message": {
+											"type": "string"
+										},
+										"refresh_token": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										},
+										"user": {
+											"properties": {
+												"active": {
+													"type": "boolean"
+												},
+												"email": {
+													"type": "string"
+												},
+												"roles": {
+													"items": {
+														"type": "string"
+													},
+													"type": "array"
+												},
+												"suspended": {
+													"type": "boolean"
+												},
+												"username": {
+													"type": "string"
+												}
+											},
+											"type": "object"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "invalid signup code",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 401"
+					}
+				},
+				"security": [],
+				"summary": "Auto-generated doc for POST /auth/complete-registration",
+				"tags": [
+					"auth"
+				]
+			}
+		},
+		"/auth/invite": {
+			"post": {
+				"description": "Endpoint documentation for POST /auth/invite",
+				"operationId": "post /auth/invite",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"email": "wealthcurrencyllc+1000@gmail.com",
+									"phoneNumber": "+2348138686013",
+									"username": "onethousand"
+								},
+								"properties": {
+									"email": {
+										"description": "email",
+										"type": "string"
+									},
+									"phoneNumber": {
+										"description": "phoneNumber",
+										"type": "string"
+									},
+									"username": {
+										"description": "username",
+										"type": "string"
+									}
+								},
+								"required": [
+									"email",
+									"username",
+									"phoneNumber"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Admin invited successfully",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Invalid or expired token"
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 403"
+					}
+				},
+				"security": [],
+				"summary": "Auto-generated doc for POST /auth/invite",
+				"tags": [
+					"auth"
+				]
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"description": "Endpoint documentation for POST /auth/login",
+				"operationId": "post /auth/login",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"email": "rorewole+admin@gmail.com",
+									"password": "123456"
+								},
+								"properties": {
+									"email": {
+										"description": "email",
+										"type": "string"
+									},
+									"password": {
+										"description": "password",
+										"type": "string"
+									}
+								},
+								"required": [
+									"email",
+									"password"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvcmV3b2xlK2FkbWluQGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIiwic3VwZXJBZG1pbiJdLCJhdXRoZW50aWNhdGlvblR5cGUiOiJQQVNTV09SRCIsInVzZXJJZCI6InJvcmV3b2xlK2FkbWluQGdtYWlsLmNvbSIsImlhdCI6MTc0NDQwMTYxMSwiZXhwIjoxNzQ0NDA1MjExLCJpc3MiOiJvdHBkZXYiLCJzdWIiOiJyb3Jld29sZSthZG1pbkBnbWFpbC5jb20iLCJqdGkiOiJlNDk4ZWE4NS0yYmE3LTRhZTQtOTVhYS01NDY4ZmRlMGViNDgifQ.UIypEIgJ08khpT1gv9Na--9XyDnQkwxImEY7NRKj9puORfAMQJ6pVjOX732UBZn4iCAKGvnHPc21Vh-NO_nT2aFvgmv2X3wuA_yvzssll-SOmQijuaEX5D3Ii9on2QOGE0QoXsJe3Rqp4lGx54kVGyFgPc8mdEZPOF2TZPQgBAQKX-RM7zx8FWD0U9E0261BpWpfk0PSqsNYxnslntSc0VzyTaqznLvHCJQUvIxFk-ZIA3m2sqhWmXGIY7NiFM8zV4VyfJGQvmA5BsgEEkX-KLFi56yg0zjhcrLse37hYyxK53AS4cLRgOZtCmVa2Rlk9l0AMYrFHhxTQjDb4Pjrww",
+										"authenticationType": "PASSWORD",
+										"message": "Logged in successfully",
+										"refresh_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJyb3Jld29sZSthZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NDQ0MDE2MTEsImV4cCI6MTc0NTAwNjQxMSwiaXNzIjoib3RwZGV2Iiwic3ViIjoicm9yZXdvbGUrYWRtaW5AZ21haWwuY29tIiwianRpIjoiZTQ5OGVhODUtMmJhNy00YWU0LTk1YWEtNTQ2OGZkZTBlYjQ4In0.poW8iTIkjEFIXRcOhRRDyfwSvpcXnpmX0K9RITU_S5_xn6tcpdU2Oa1nGVljrtMmL8WXOn9VPYdzid6smsujAU5xThLIQKdK82i6Ma7LbJxwKRPkq2XGui6cFZ40jhoPn2y8V8vxEPfiN-NuF4Fp7SD0dxnJhdcO3W5nCh8CqCcHTFtJYpIYXq4XywhWsnq0Buulf-C1LE8PjUaUbResMMWwwDMVcBCiEvcEHUCjtz7altl3RuaA0pApcJAqkMQ7Kw5xA4hOEUjMtRSYzvQiacHLmm57QpMZWokQWy2jkagAuOZTE9q2oSE4nyZXKJa9OyxQEEKjJSC_fSEV6ne9lQ",
+										"success": true,
+										"user": {
+											"active": true,
+											"email": "rorewole+admin@gmail.com",
+											"roles": [
+												"admin",
+												"superAdmin"
+											],
+											"suspended": false,
+											"username": "admin"
+										}
+									},
+									"properties": {
+										"access_token": {
+											"type": "string"
+										},
+										"authenticationType": {
+											"type": "string"
+										},
+										"message": {
+											"type": "string"
+										},
+										"refresh_token": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										},
+										"user": {
+											"properties": {
+												"active": {
+													"type": "boolean"
+												},
+												"email": {
+													"type": "string"
+												},
+												"roles": {
+													"items": {
+														"type": "string"
+													},
+													"type": "array"
+												},
+												"suspended": {
+													"type": "boolean"
+												},
+												"username": {
+													"type": "string"
+												}
+											},
+											"type": "object"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "invalid admin login credentials",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 401"
+					}
+				},
+				"security": [],
+				"summary": "Auto-generated doc for POST /auth/login",
+				"tags": [
+					"auth"
+				]
+			}
+		},
+		"/auth/manage-admin": {
+			"post": {
+				"description": "Endpoint documentation for POST /auth/manage-admin",
+				"operationId": "post /auth/manage-admin",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"action": "suspend",
+									"email": "wealthcurrencyllc+1000@gmail.com"
+								},
+								"properties": {
+									"action": {
+										"description": "action",
+										"enum": [
+											"suspend",
+											"reactivate",
+											"remove"
+										],
+										"type": "string"
+									},
+									"email": {
+										"description": "email",
+										"type": "string"
+									}
+								},
+								"required": [
+									"email",
+									"action"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /auth/manage-admin",
+				"tags": [
+					"auth"
+				]
+			}
+		},
+		"/auth/refresh-jwt": {
+			"post": {
+				"description": "Endpoint documentation for POST /auth/refresh-jwt",
+				"operationId": "post /auth/refresh-jwt",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ3ZWFsdGhjdXJyZW5jeWxsYysxMDBAZ21haWwuY29tIiwiaWF0IjoxNzQ0Mzk4NTI3LCJleHAiOjE3NDUwMDMzMjcsImlzcyI6Im90cGRldiIsInN1YiI6IndlYWx0aGN1cnJlbmN5bGxjKzEwMEBnbWFpbC5jb20iLCJqdGkiOiI5ZmY5NjJlZS1jNDY2LTRlMjgtODBlZC0zMzM0MTZkMDY0MDYifQ.ASHWTT3KAW9YRzUQxvubc3wwwRxGxprWtm1avxlmbowwbJRtjmW6OPgB4-F9ZreYs8lzQxbafxhXO06irpt-XWKqOAGnajriqd8OHlDJgl6oJUaxTuQZHMTsBenOFdAegTlhnTT45N_D5LF9nhC5u_5nEziT5WGBVY3Xgx97r4bzpCFIxfdijcJPgGPJQtY5Cjv_3UIUIDWFTDPBU2wENkimXCJIcIjV9-hWoHR9_xyN-z1a-6CV8H5cvu94eNn8HyvK-T66X_lub4FWW1w0X6Otcq2bO3U0tFzuFluGynoCGbyu66uX3v4sg5cGhDD3WZySpDZiEW4ey_0xOFNfrQ"
+								},
+								"properties": {
+									"refreshToken": {
+										"description": "refreshToken",
+										"type": "string"
+									}
+								},
+								"required": [
+									"refreshToken"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndlYWx0aGN1cnJlbmN5bGxjKzEwMEBnbWFpbC5jb20iLCJyb2xlcyI6WyJhZG1pbiJdLCJhdXRoZW50aWNhdGlvblR5cGUiOiJSRUZSRVNIX1RPS0VOIiwidXNlcklkIjoid2VhbHRoY3VycmVuY3lsbGMrMTAwQGdtYWlsLmNvbSIsImlhdCI6MTc0NDQwMTg1OSwiZXhwIjoxNzQ0NDA1NDU5LCJpc3MiOiJvdHBkZXYiLCJzdWIiOiJ3ZWFsdGhjdXJyZW5jeWxsYysxMDBAZ21haWwuY29tIiwianRpIjoiOWZmOTYyZWUtYzQ2Ni00ZTI4LTgwZWQtMzMzNDE2ZDA2NDA2In0.RkWeepfIIRFR5siunlQq2havxaGtx1WHCi42so8DXzcHjDTa8VdZM2JB_ofyT9m15E-D_pgquvBAsu70HwXHnvadqtcLnIiXVrlNUoID8kzqTO58hAODvKwsxBtvbuCsi4bVr7aarnBnLvxx6TLx32ADwNruIyIPn1zHmxXr2vbOtD_GrpR482KbPu4q5Xjw_MpMg8B2aTlxWI-wB31LTotmk387tG7HrhcQnec_NTTLQt84sUwCbf-hLng1AEENSLRddI61xshi06dvkq5BXQ1VSvoRSsfeMy2uWekjJ8J-e5Dgp60BMrvCOYqhMA_kI3IRnRRWOgZLjb0UPWaRig",
+										"authenticationType": "REFRESH_TOKEN",
+										"message": "refresh completed",
+										"refresh_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ3ZWFsdGhjdXJyZW5jeWxsYysxMDBAZ21haWwuY29tIiwiaWF0IjoxNzQ0Mzk4NTI3LCJleHAiOjE3NDUwMDMzMjcsImlzcyI6Im90cGRldiIsInN1YiI6IndlYWx0aGN1cnJlbmN5bGxjKzEwMEBnbWFpbC5jb20iLCJqdGkiOiI5ZmY5NjJlZS1jNDY2LTRlMjgtODBlZC0zMzM0MTZkMDY0MDYifQ.ASHWTT3KAW9YRzUQxvubc3wwwRxGxprWtm1avxlmbowwbJRtjmW6OPgB4-F9ZreYs8lzQxbafxhXO06irpt-XWKqOAGnajriqd8OHlDJgl6oJUaxTuQZHMTsBenOFdAegTlhnTT45N_D5LF9nhC5u_5nEziT5WGBVY3Xgx97r4bzpCFIxfdijcJPgGPJQtY5Cjv_3UIUIDWFTDPBU2wENkimXCJIcIjV9-hWoHR9_xyN-z1a-6CV8H5cvu94eNn8HyvK-T66X_lub4FWW1w0X6Otcq2bO3U0tFzuFluGynoCGbyu66uX3v4sg5cGhDD3WZySpDZiEW4ey_0xOFNfrQ",
+										"success": true,
+										"user": {
+											"active": true,
+											"email": "wealthcurrencyllc+100@gmail.com",
+											"roles": [
+												"admin"
+											],
+											"suspended": false,
+											"username": "onehundred"
+										}
+									},
+									"properties": {
+										"access_token": {
+											"type": "string"
+										},
+										"authenticationType": {
+											"type": "string"
+										},
+										"message": {
+											"type": "string"
+										},
+										"refresh_token": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										},
+										"user": {
+											"properties": {
+												"active": {
+													"type": "boolean"
+												},
+												"email": {
+													"type": "string"
+												},
+												"roles": {
+													"items": {
+														"type": "string"
+													},
+													"type": "array"
+												},
+												"suspended": {
+													"type": "boolean"
+												},
+												"username": {
+													"type": "string"
+												}
+											},
+											"type": "object"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Invalid or expired refresh token",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 401"
+					}
+				},
+				"security": [],
+				"summary": "Auto-generated doc for POST /auth/refresh-jwt",
+				"tags": [
+					"auth"
+				]
+			}
+		},
+		"/auth/set-pin": {
+			"post": {
+				"description": "Endpoint documentation for POST /auth/set-pin",
+				"operationId": "post /auth/set-pin",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"confirmPin": "1233",
+									"pin": "1234"
+								},
+								"properties": {
+									"confirmPin": {
+										"description": "confirmPin",
+										"type": "string"
+									},
+									"pin": {
+										"description": "pin",
+										"type": "string"
+									}
+								},
+								"required": [
+									"pin",
+									"confirmPin"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Pin set successfully",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Pin values do not match",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 401"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Invalid token"
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 403"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /auth/set-pin",
+				"tags": [
+					"auth"
+				]
+			}
+		},
+		"/auth/validate-pin": {
+			"post": {
+				"description": "Endpoint documentation for POST /auth/validate-pin",
+				"operationId": "post /auth/validate-pin",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"pin": "12345"
+								},
+								"properties": {
+									"pin": {
+										"description": "pin",
+										"type": "string"
+									}
+								},
+								"required": [
+									"pin"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Pin validated",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "invalid pin",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 401"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /auth/validate-pin",
+				"tags": [
+					"auth"
+				]
+			}
+		},
+		"/balances": {
+			"get": {
+				"description": "Endpoint documentation for GET /balances",
+				"operationId": "get /balances",
+				"parameters": [
+					{
+						"description": "username",
+						"example": "changr",
+						"in": "query",
+						"name": "username",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"balance": 15000,
+												"currency": "OTP",
+												"isAdminBalance": false,
+												"totalReceived": 15000,
+												"totalSent": 0
+											},
+											{
+												"accountType": "bonus",
+												"balance": 150,
+												"canWithdraw": true,
+												"currency": "OTP",
+												"isAdminBalance": false,
+												"totalReceived": 150,
+												"totalSent": 0
+											}
+										],
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"properties": {
+													"balance": {
+														"type": "number"
+													},
+													"currency": {
+														"type": "string"
+													},
+													"isAdminBalance": {
+														"type": "boolean"
+													},
+													"totalReceived": {
+														"type": "number"
+													},
+													"totalSent": {
+														"type": "number"
+													}
+												},
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /balances",
+				"tags": [
+					"balances"
+				]
+			},
+			"post": {
+				"description": "Endpoint documentation for POST /balances",
+				"operationId": "post /balances",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"accountType": "main",
+									"balance": 0,
+									"canWithdraw": false,
+									"currency": "NGN",
+									"isAdminBalance": false,
+									"username": "changr"
+								},
+								"properties": {
+									"accountType": {
+										"description": "accountType",
+										"type": "string"
+									},
+									"balance": {
+										"description": "balance",
+										"type": "number"
+									},
+									"canWithdraw": {
+										"description": "canWithdraw",
+										"type": "boolean"
+									},
+									"currency": {
+										"description": "currency",
+										"type": "string"
+									},
+									"isAdminBalance": {
+										"description": "isAdminBalance",
+										"type": "boolean"
+									},
+									"username": {
+										"description": "username",
+										"type": "string"
+									}
+								},
+								"required": [
+									"username",
+									"currency",
+									"balance",
+									"accountType",
+									"isAdminBalance",
+									"canWithdraw"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "balance set successfully",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"errors": {
+											"_original": {
+												"accountType": "main",
+												"balance": 0,
+												"canWithdraw": false,
+												"currency": "NGN",
+												"isAdminBalance": false,
+												"username": "changr"
+											},
+											"details": [
+												{
+													"context": {
+														"key": "accountType",
+														"label": "accountType",
+														"valids": [
+															"bonus",
+															"mainAccount"
+														],
+														"value": "main"
+													},
+													"message": "\"accountType\" must be one of [bonus, mainAccount]",
+													"path": [
+														"accountType"
+													],
+													"type": "any.only"
+												}
+											],
+											"statusCode": 400
+										},
+										"success": false
+									},
+									"properties": {
+										"errors": {
+											"properties": {
+												"_original": {
+													"properties": {
+														"accountType": {
+															"type": "string"
+														},
+														"balance": {
+															"type": "number"
+														},
+														"canWithdraw": {
+															"type": "boolean"
+														},
+														"currency": {
+															"type": "string"
+														},
+														"isAdminBalance": {
+															"type": "boolean"
+														},
+														"username": {
+															"type": "string"
+														}
+													},
+													"type": "object"
+												},
+												"details": {
+													"items": {
+														"properties": {
+															"context": {
+																"properties": {
+																	"key": {
+																		"type": "string"
+																	},
+																	"label": {
+																		"type": "string"
+																	},
+																	"valids": {
+																		"items": {
+																			"type": "string"
+																		},
+																		"type": "array"
+																	},
+																	"value": {
+																		"type": "string"
+																	}
+																},
+																"type": "object"
+															},
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"items": {
+																	"type": "string"
+																},
+																"type": "array"
+															},
+															"type": {
+																"type": "string"
+															}
+														},
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"statusCode": {
+													"type": "number"
+												}
+											},
+											"type": "object"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 400"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /balances",
+				"tags": [
+					"balances"
+				]
+			}
+		},
+		"/banks": {
+			"delete": {
+				"description": "Endpoint documentation for DELETE /banks",
+				"operationId": "delete /banks",
+				"parameters": [
+					{
+						"description": "bankId",
+						"example": "780",
+						"in": "query",
+						"name": "bankId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for DELETE /banks",
+				"tags": [
+					"banks"
+				]
+			},
+			"get": {
+				"description": "Endpoint documentation for GET /banks",
+				"operationId": "get /banks",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"banks": [
+											{
+												"code": "120001",
+												"id": 302,
+												"name": "9mobile 9Payment Service Bank",
+												"slug": "9mobile-9payment-service-bank-ng"
+											},
+											{
+												"code": "404",
+												"id": 174,
+												"name": "Abbey Mortgage Bank",
+												"slug": "abbey-mortgage-bank-ng"
+											},
+											{
+												"code": "51204",
+												"id": 188,
+												"name": "Above Only MFB",
+												"slug": "above-only-mfb"
+											},
+											{
+												"code": "51312",
+												"id": 627,
+												"name": "Abulesoro MFB",
+												"slug": "abulesoro-mfb-ng"
+											},
+											{
+												"code": "044",
+												"id": 1,
+												"name": "Access Bank",
+												"slug": "access-bank"
+											},
+											{
+												"code": "063",
+												"id": 3,
+												"name": "Access Bank (Diamond)",
+												"slug": "access-bank-diamond"
+											},
+											{
+												"code": "602",
+												"id": 495,
+												"name": "Accion Microfinance Bank",
+												"slug": "accion-microfinance-bank-ng"
+											},
+											{
+												"code": "50315",
+												"id": 687,
+												"name": "Aella MFB",
+												"slug": "aella-mfb-ng"
+											},
+											{
+												"code": "90077",
+												"id": 780,
+												"name": "AG Mortgage Bank",
+												"slug": "ag-mortgage-bank-ng"
+											},
+											{
+												"code": "50036",
+												"id": 676,
+												"name": "Ahmadu Bello University Microfinance Bank",
+												"slug": "ahmadu-bello-university-microfinance-bank-ng"
+											},
+											{
+												"code": "120004",
+												"id": 300,
+												"name": "Airtel Smartcash PSB",
+												"slug": "airtel-smartcash-psb-ng"
+											},
+											{
+												"code": "51336",
+												"id": 698,
+												"name": "AKU Microfinance Bank",
+												"slug": "aku-mfb"
+											},
+											{
+												"code": "090561",
+												"id": 497,
+												"name": "Akuchukwu Microfinance Bank Limited",
+												"slug": "akuchukwu-microfinance-bank-limited-ng"
+											},
+											{
+												"code": "035A",
+												"id": 27,
+												"name": "ALAT by WEMA",
+												"slug": "alat-by-wema"
+											},
+											{
+												"code": "000304",
+												"id": 790,
+												"name": "Alternative bank",
+												"slug": "the-alternative-bank-ng"
+											},
+											{
+												"code": "090629",
+												"id": 707,
+												"name": "Amegy Microfinance Bank",
+												"slug": "amegy-microfinance-bank-ng"
+											},
+											{
+												"code": "50926",
+												"id": 179,
+												"name": "Amju Unique MFB",
+												"slug": "amju-unique-mfb"
+											},
+											{
+												"code": "50083",
+												"id": 614,
+												"name": "Aramoko MFB",
+												"slug": "aramoko-mfb"
+											},
+											{
+												"code": "401",
+												"id": 63,
+												"name": "ASO Savings and Loans",
+												"slug": "asosavings"
+											},
+											{
+												"code": "50092",
+												"id": 793,
+												"name": "Assets Microfinance Bank",
+												"slug": "assets-microfinance-bank-ng"
+											},
+											{
+												"code": "MFB50094",
+												"id": 297,
+												"name": "Astrapolaris MFB LTD",
+												"slug": "astrapolaris-mfb"
+											},
+											{
+												"code": "090478",
+												"id": 759,
+												"name": "AVUENEGBE MICROFINANCE BANK",
+												"slug": "avuenegbe-microfinance-bank-ng"
+											},
+											{
+												"code": "51351",
+												"id": 778,
+												"name": "AWACASH MICROFINANCE BANK",
+												"slug": "awacash-microfinance-bank-ng"
+											},
+											{
+												"code": "51337",
+												"id": 796,
+												"name": "AZTEC MICROFINANCE BANK LIMITED",
+												"slug": "aztec-microfinance-bank-limited-ng"
+											},
+											{
+												"code": "51229",
+												"id": 181,
+												"name": "Bainescredit MFB",
+												"slug": "bainescredit-mfb"
+											},
+											{
+												"code": "50117",
+												"id": 686,
+												"name": "Banc Corp Microfinance Bank",
+												"slug": "banc-corp-microfinance-bank-ng"
+											},
+											{
+												"code": "50572",
+												"id": 832,
+												"name": "BANKIT MICROFINANCE BANK LTD",
+												"slug": "bankit-microfinance-bank-ltd-ng"
+											},
+											{
+												"code": "51341",
+												"id": 689,
+												"name": "BANKLY MFB",
+												"slug": "ampersand-microfinance-bank-ng"
+											},
+											{
+												"code": "MFB50992",
+												"id": 777,
+												"name": "Baobab Microfinance Bank",
+												"slug": "baobab-microfinance-bank-ng"
+											},
+											{
+												"code": "51100",
+												"id": 783,
+												"name": "BellBank Microfinance Bank",
+												"slug": "bellbank-microfinance-bank-ng"
+											},
+											{
+												"code": "51267",
+												"id": 589,
+												"name": "Benysta Microfinance Bank Limited",
+												"slug": "benysta-microfinance-bank-limited"
+											},
+											{
+												"code": "50123",
+												"id": 771,
+												"name": "Beststar Microfinance Bank",
+												"slug": "beststar-microfinance-bank-ng"
+											},
+											{
+												"code": "50725",
+												"id": 816,
+												"name": "BOLD MFB",
+												"slug": "bold-mfb-ng"
+											},
+											{
+												"code": "650",
+												"id": 815,
+												"name": "Bosak Microfinance Bank",
+												"slug": "bosak-microfinance-bank-ng"
+											},
+											{
+												"code": "50931",
+												"id": 108,
+												"name": "Bowen Microfinance Bank",
+												"slug": "bowen-microfinance-bank"
+											},
+											{
+												"code": "FC40163",
+												"id": 697,
+												"name": "Branch International Finance Company Limited",
+												"slug": "branch"
+											},
+											{
+												"code": "50645",
+												"id": 817,
+												"name": "BuyPower MFB",
+												"slug": "buypower-mfb-ng"
+											},
+											{
+												"code": "565",
+												"id": 82,
+												"name": "Carbon",
+												"slug": "carbon"
+											},
+											{
+												"code": "51353",
+												"id": 781,
+												"name": "Cashbridge Microfinance Bank Limited",
+												"slug": "cashbridge-mfb-ng"
+											},
+											{
+												"code": "865",
+												"id": 692,
+												"name": "CASHCONNECT MFB",
+												"slug": "cashconnect-mfb-ng"
+											},
+											{
+												"code": "50823",
+												"id": 74,
+												"name": "CEMCS Microfinance Bank",
+												"slug": "cemcs-microfinance-bank"
+											},
+											{
+												"code": "50171",
+												"id": 284,
+												"name": "Chanelle Microfinance Bank Limited",
+												"slug": "chanelle-microfinance-bank-limited-ng"
+											},
+											{
+												"code": "312",
+												"id": 704,
+												"name": "Chikum Microfinance bank",
+												"slug": "chikum-microfinance-bank-ng"
+											},
+											{
+												"code": "023",
+												"id": 2,
+												"name": "Citibank Nigeria",
+												"slug": "citibank-nigeria"
+											},
+											{
+												"code": "070027",
+												"id": 755,
+												"name": "CITYCODE MORTAGE BANK",
+												"slug": "citycode-mortage-bank-ng"
+											},
+											{
+												"code": "50910",
+												"id": 691,
+												"name": "Consumer Microfinance Bank",
+												"slug": "consumer-microfinance-bank-ng"
+											},
+											{
+												"code": "50204",
+												"id": 283,
+												"name": "Corestep MFB",
+												"slug": "corestep-mfb"
+											},
+											{
+												"code": "559",
+												"id": 173,
+												"name": "Coronation Merchant Bank",
+												"slug": "coronation-merchant-bank-ng"
+											},
+											{
+												"code": "FC40128",
+												"id": 694,
+												"name": "County Finance Limited",
+												"slug": "county-finance-limited"
+											},
+											{
+												"code": "40119",
+												"id": 829,
+												"name": "Credit Direct Limited",
+												"slug": "credit-direct-limited-ng"
+											},
+											{
+												"code": "51297",
+												"id": 366,
+												"name": "Crescent MFB",
+												"slug": "crescent-mfb"
+											},
+											{
+												"code": "090560",
+												"id": 634,
+												"name": "Crust Microfinance Bank",
+												"slug": "crust-microfinance-bank-ng"
+											},
+											{
+												"code": "MFB50216",
+												"id": 820,
+												"name": "CRUTECH MICROFINANCE BANK LTD",
+												"slug": "crutech-microfinance-bank-ltd-ng"
+											},
+											{
+												"code": "51334",
+												"id": 738,
+												"name": "Davenport MICROFINANCE BANK",
+												"slug": "davenport-microfinance-bank-ng"
+											},
+											{
+												"code": "50162",
+												"id": 637,
+												"name": "Dot Microfinance Bank",
+												"slug": "dot-microfinance-bank-ng"
+											},
+											{
+												"code": "50922",
+												"id": 821,
+												"name": "EBSU Microfinance Bank",
+												"slug": "ebsu-microfinance-bank-ng"
+											},
+											{
+												"code": "050",
+												"id": 4,
+												"name": "Ecobank Nigeria",
+												"slug": "ecobank-nigeria"
+											},
+											{
+												"code": "50263",
+												"id": 628,
+												"name": "Ekimogun MFB",
+												"slug": "ekimogun-mfb-ng"
+											},
+											{
+												"code": "098",
+												"id": 64,
+												"name": "Ekondo Microfinance Bank",
+												"slug": "ekondo-microfinance-bank-ng"
+											},
+											{
+												"code": "090678",
+												"id": 761,
+												"name": "EXCEL FINANCE BANK",
+												"slug": "excel-finance-bank-ng"
+											},
+											{
+												"code": "50126",
+												"id": 167,
+												"name": "Eyowo",
+												"slug": "eyowo"
+											},
+											{
+												"code": "51318",
+												"id": 677,
+												"name": "Fairmoney Microfinance Bank",
+												"slug": "fairmoney-microfinance-bank-ng"
+											},
+											{
+												"code": "50298",
+												"id": 767,
+												"name": "Fedeth MFB",
+												"slug": "fedeth-mfb-ng"
+											},
+											{
+												"code": "070",
+												"id": 6,
+												"name": "Fidelity Bank",
+												"slug": "fidelity-bank"
+											},
+											{
+												"code": "51314",
+												"id": 177,
+												"name": "Firmus MFB",
+												"slug": "firmus-mfb"
+											},
+											{
+												"code": "011",
+												"id": 7,
+												"name": "First Bank of Nigeria",
+												"slug": "first-bank-of-nigeria"
+											},
+											{
+												"code": "214",
+												"id": 8,
+												"name": "First City Monument Bank",
+												"slug": "first-city-monument-bank"
+											},
+											{
+												"code": "090164",
+												"id": 757,
+												"name": "FIRST ROYAL MICROFINANCE BANK",
+												"slug": "first-royal-microfinance-bank-ng"
+											},
+											{
+												"code": "51333",
+												"id": 812,
+												"name": "FIRSTMIDAS MFB",
+												"slug": "firstmidas-mfb-ng"
+											},
+											{
+												"code": "413",
+												"id": 682,
+												"name": "FirstTrust Mortgage Bank Nigeria",
+												"slug": "firsttrust-mortgage-bank-nigeria-ng"
+											},
+											{
+												"code": "501",
+												"id": 112,
+												"name": "FSDH Merchant Bank Limited",
+												"slug": "fsdh-merchant-bank-limited"
+											},
+											{
+												"code": "832",
+												"id": 716,
+												"name": "FUTMINNA MICROFINANCE BANK",
+												"slug": "futminna-microfinance-bank-ng"
+											},
+											{
+												"code": "MFB51093",
+												"id": 794,
+												"name": "Garun Mallam MFB",
+												"slug": "garun-mallam-mfb-ng"
+											},
+											{
+												"code": "812",
+												"id": 287,
+												"name": "Gateway Mortgage Bank LTD",
+												"slug": "gateway-mortgage-bank"
+											},
+											{
+												"code": "00103",
+												"id": 70,
+												"name": "Globus Bank",
+												"slug": "globus-bank"
+											},
+											{
+												"code": "090574",
+												"id": 769,
+												"name": "Goldman MFB",
+												"slug": "goldman-mfb-ng"
+											},
+											{
+												"code": "100022",
+												"id": 183,
+												"name": "GoMoney",
+												"slug": "gomoney"
+											},
+											{
+												"code": "090664",
+												"id": 756,
+												"name": "GOOD SHEPHERD MICROFINANCE BANK",
+												"slug": "good-shepherd-microfinance-bank-ng"
+											},
+											{
+												"code": "50739",
+												"id": 635,
+												"name": "Goodnews Microfinance Bank",
+												"slug": "goodnews-microfinance-bank-ng"
+											},
+											{
+												"code": "562",
+												"id": 633,
+												"name": "Greenwich Merchant Bank",
+												"slug": "greenwich-merchant-bank-ng"
+											},
+											{
+												"code": "51276",
+												"id": 789,
+												"name": "GROOMING MICROFINANCE BANK",
+												"slug": "grooming-microfinance-bank-ng"
+											},
+											{
+												"code": "50368",
+												"id": 824,
+												"name": "GTI MFB",
+												"slug": "gti-mfb-ng"
+											},
+											{
+												"code": "058",
+												"id": 9,
+												"name": "Guaranty Trust Bank",
+												"slug": "guaranty-trust-bank"
+											},
+											{
+												"code": "51251",
+												"id": 111,
+												"name": "Hackman Microfinance Bank",
+												"slug": "hackman-microfinance-bank"
+											},
+											{
+												"code": "50383",
+												"id": 81,
+												"name": "Hasal Microfinance Bank",
+												"slug": "hasal-microfinance-bank"
+											},
+											{
+												"code": "120002",
+												"id": 301,
+												"name": "HopePSB",
+												"slug": "hopepsb-ng"
+											},
+											{
+												"code": "51211",
+												"id": 75,
+												"name": "IBANK Microfinance Bank",
+												"slug": "IBANK-mfb"
+											},
+											{
+												"code": "51279",
+												"id": 828,
+												"name": "IBBU MFB",
+												"slug": "ibbu-mfb-ng"
+											},
+											{
+												"code": "51244",
+												"id": 168,
+												"name": "Ibile Microfinance Bank",
+												"slug": "ibile-mfb"
+											},
+											{
+												"code": "50439",
+												"id": 615,
+												"name": "Ikoyi Osun MFB",
+												"slug": "ikoyi-osun-mfb"
+											},
+											{
+												"code": "50442",
+												"id": 636,
+												"name": "Ilaro Poly Microfinance Bank",
+												"slug": "ilaro-poly-microfinance-bank-ng"
+											},
+											{
+												"code": "50453",
+												"id": 703,
+												"name": "Imowo MFB",
+												"slug": "imowo-mfb-ng"
+											},
+											{
+												"code": "415",
+												"id": 754,
+												"name": "IMPERIAL HOMES MORTAGE BANK",
+												"slug": "imperial-homes-mortage-bank-ng"
+											},
+											{
+												"code": "50457",
+												"id": 172,
+												"name": "Infinity MFB",
+												"slug": "infinity-mfb"
+											},
+											{
+												"code": "070016",
+												"id": 822,
+												"name": "Infinity trust  Mortgage Bank",
+												"slug": "infinity-trust-mortgage-bank-ng"
+											},
+											{
+												"code": "090701",
+												"id": 787,
+												"name": "ISUA MFB",
+												"slug": "isua-mfb-ng"
+											},
+											{
+												"code": "301",
+												"id": 22,
+												"name": "Jaiz Bank",
+												"slug": "jaiz-bank"
+											},
+											{
+												"code": "50502",
+												"id": 187,
+												"name": "Kadpoly MFB",
+												"slug": "kadpoly-mfb"
+											},
+											{
+												"code": "51308",
+												"id": 768,
+												"name": "KANOPOLY MFB",
+												"slug": "kanopoly-mfb-ng"
+											},
+											{
+												"code": "082",
+												"id": 11,
+												"name": "Keystone Bank",
+												"slug": "keystone-bank"
+											},
+											{
+												"code": "899",
+												"id": 810,
+												"name": "Kolomoni MFB",
+												"slug": "kolomoni-mfb-ng"
+											},
+											{
+												"code": "100025",
+												"id": 784,
+												"name": "KONGAPAY (Kongapay Technologies Limited)(formerly Zinternet)",
+												"slug": "kongapay-tech-ltd"
+											},
+											{
+												"code": "50200",
+												"id": 184,
+												"name": "Kredi Money MFB LTD",
+												"slug": "kredi-money-mfb"
+											},
+											{
+												"code": "50211",
+												"id": 67,
+												"name": "Kuda Bank",
+												"slug": "kuda-bank"
+											},
+											{
+												"code": "90052",
+												"id": 109,
+												"name": "Lagos Building Investment Company Plc.",
+												"slug": "lbic-plc"
+											},
+											{
+												"code": "090420",
+												"id": 523,
+												"name": "Letshego Microfinance Bank",
+												"slug": "letshego-microfinance-bank"
+											},
+											{
+												"code": "50549",
+												"id": 180,
+												"name": "Links MFB",
+												"slug": "links-mfb"
+											},
+											{
+												"code": "031",
+												"id": 296,
+												"name": "Living Trust Mortgage Bank",
+												"slug": "living-trust-mortgage-bank"
+											},
+											{
+												"code": "50491",
+												"id": 753,
+												"name": "LOMA MFB",
+												"slug": "loma-mfb-ng"
+											},
+											{
+												"code": "303",
+												"id": 233,
+												"name": "Lotus Bank",
+												"slug": "lotus-bank"
+											},
+											{
+												"code": "090171",
+												"id": 764,
+												"name": "MAINSTREET MICROFINANCE BANK",
+												"slug": "mainstreet-microfinance-bank-ng"
+											},
+											{
+												"code": "50563",
+												"id": 175,
+												"name": "Mayfair MFB",
+												"slug": "mayfair-mfb"
+											},
+											{
+												"code": "50304",
+												"id": 178,
+												"name": "Mint MFB",
+												"slug": "mint-mfb"
+											},
+											{
+												"code": "946",
+												"id": 714,
+												"name": "Money Master PSB",
+												"slug": "money-master-psb-ng"
+											},
+											{
+												"code": "50515",
+												"id": 688,
+												"name": "Moniepoint MFB",
+												"slug": "moniepoint-mfb-ng"
+											},
+											{
+												"code": "120003",
+												"id": 303,
+												"name": "MTN Momo PSB",
+												"slug": "mtn-momo-psb-ng"
+											},
+											{
+												"code": "090190",
+												"id": 739,
+												"name": "MUTUAL BENEFITS MICROFINANCE BANK",
+												"slug": "mutual-benefits-microfinance-bank-ng"
+											},
+											{
+												"code": "090679",
+												"id": 758,
+												"name": "NDCC MICROFINANCE BANK",
+												"slug": "ndcc-microfinance-bank-ng"
+											},
+											{
+												"code": "51361",
+												"id": 776,
+												"name": "NET MICROFINANCE BANK",
+												"slug": "net-microfinance-bank-ng"
+											},
+											{
+												"code": "51142",
+												"id": 774,
+												"name": "Nigerian Navy Microfinance Bank Limited",
+												"slug": "nigerian-navy-microfinance-bank-limited-ng"
+											},
+											{
+												"code": "50072",
+												"id": 795,
+												"name": "Nombank MFB",
+												"slug": "nombank-mfb-ng"
+											},
+											{
+												"code": "561",
+												"id": 801,
+												"name": "NOVA BANK",
+												"slug": "nova-bank-ng"
+											},
+											{
+												"code": "51371",
+												"id": 830,
+												"name": "Novus MFB",
+												"slug": "novus-mfb-ng"
+											},
+											{
+												"code": "50629",
+												"id": 715,
+												"name": "NPF MICROFINANCE BANK",
+												"slug": "npf-microfinance-bank-ng"
+											},
+											{
+												"code": "51261",
+												"id": 825,
+												"name": "NSUK MICROFINANACE BANK",
+												"slug": "nsuk-microfinanace-bank-ng"
+											},
+											{
+												"code": "50697",
+												"id": 802,
+												"name": "OLUCHUKWU MICROFINANCE BANK LTD",
+												"slug": "oluchukwu-microfinance-bank-ltd-ng"
+											},
+											{
+												"code": "999992",
+												"id": 171,
+												"name": "OPay Digital Services Limited (OPay)",
+												"slug": "paycom"
+											},
+											{
+												"code": "107",
+												"id": 699,
+												"name": "Optimus Bank Limited",
+												"slug": "optimus-bank-ltd"
+											},
+											{
+												"code": "100002",
+												"id": 185,
+												"name": "Paga",
+												"slug": "paga"
+											},
+											{
+												"code": "999991",
+												"id": 169,
+												"name": "PalmPay",
+												"slug": "palmpay"
+											},
+											{
+												"code": "104",
+												"id": 26,
+												"name": "Parallex Bank",
+												"slug": "parallex-bank"
+											},
+											{
+												"code": "311",
+												"id": 110,
+												"name": "Parkway - ReadyCash",
+												"slug": "parkway-ready-cash"
+											},
+											{
+												"code": "090680",
+												"id": 763,
+												"name": "PATHFINDER MICROFINANCE BANK LIMITED",
+												"slug": "pathfinder-microfinance-bank-limited-ng"
+											},
+											{
+												"code": "100039",
+												"id": 629,
+												"name": "Paystack-Titan",
+												"slug": "titan-paystack"
+											},
+											{
+												"code": "50743",
+												"id": 693,
+												"name": "Peace Microfinance Bank",
+												"slug": "peace-microfinance-bank-ng"
+											},
+											{
+												"code": "51226",
+												"id": 775,
+												"name": "PECANTRUST MICROFINANCE BANK LIMITED",
+												"slug": "pecantrust-microfinance-bank-limited-ng"
+											},
+											{
+												"code": "51146",
+												"id": 683,
+												"name": "Personal Trust MFB",
+												"slug": "personal-trust-mfb-ng"
+											},
+											{
+												"code": "50746",
+												"id": 170,
+												"name": "Petra Mircofinance Bank Plc",
+												"slug": "petra-microfinance-bank-plc"
+											},
+											{
+												"code": "MFB51452",
+												"id": 831,
+												"name": "Pettysave MFB",
+												"slug": "pettysave-mfb-ng"
+											},
+											{
+												"code": "050021",
+												"id": 762,
+												"name": "PFI FINANCE COMPANY LIMITED",
+												"slug": "pfi-finance-company-limited-ng"
+											},
+											{
+												"code": "268",
+												"id": 705,
+												"name": "Platinum Mortgage Bank",
+												"slug": "platinum-mortgage-bank-ng"
+											},
+											{
+												"code": "00716",
+												"id": 770,
+												"name": "Pocket App",
+												"slug": "pocket"
+											},
+											{
+												"code": "076",
+												"id": 13,
+												"name": "Polaris Bank",
+												"slug": "polaris-bank"
+											},
+											{
+												"code": "50864",
+												"id": 626,
+												"name": "Polyunwana MFB",
+												"slug": "polyunwana-mfb-ng"
+											},
+											{
+												"code": "105",
+												"id": 304,
+												"name": "PremiumTrust Bank",
+												"slug": "premiumtrust-bank-ng"
+											},
+											{
+												"code": "50739",
+												"id": 792,
+												"name": "Prospa Capital Microfinance Bank",
+												"slug": "prospa-capital-microfinance-bank-ng"
+											},
+											{
+												"code": "050023",
+												"id": 760,
+												"name": "PROSPERIS FINANCE LIMITED",
+												"slug": "prosperis-finance-limited-ng"
+											},
+											{
+												"code": "101",
+												"id": 25,
+												"name": "Providus Bank",
+												"slug": "providus-bank"
+											},
+											{
+												"code": "51293",
+												"id": 232,
+												"name": "QuickFund MFB",
+												"slug": "quickfund-mfb"
+											},
+											{
+												"code": "502",
+												"id": 176,
+												"name": "Rand Merchant Bank",
+												"slug": "rand-merchant-bank"
+											},
+											{
+												"code": "090496",
+												"id": 766,
+												"name": "RANDALPHA MICROFINANCE BANK",
+												"slug": "randalpha-microfinance-bank-ng"
+											},
+											{
+												"code": "90067",
+												"id": 295,
+												"name": "Refuge Mortgage Bank",
+												"slug": "refuge-mortgage-bank"
+											},
+											{
+												"code": "50761",
+												"id": 773,
+												"name": "REHOBOTH MICROFINANCE BANK",
+												"slug": "rehoboth-microfinance-bank-ng"
+											},
+											{
+												"code": "50994",
+												"id": 710,
+												"name": "Rephidim Microfinance Bank",
+												"slug": "rephidim"
+											},
+											{
+												"code": "51286",
+												"id": 700,
+												"name": "Rigo Microfinance Bank Limited",
+												"slug": "rigo-microfinance-bank-limited-ng"
+											},
+											{
+												"code": "50767",
+												"id": 679,
+												"name": "ROCKSHIELD MICROFINANCE BANK",
+												"slug": "rockshield-microfinance-bank-ng"
+											},
+											{
+												"code": "125",
+												"id": 69,
+												"name": "Rubies MFB",
+												"slug": "rubies-mfb"
+											},
+											{
+												"code": "51113",
+												"id": 286,
+												"name": "Safe Haven MFB",
+												"slug": "safe-haven-mfb-ng"
+											},
+											{
+												"code": "40165",
+												"id": 706,
+												"name": "SAGE GREY FINANCE LIMITED",
+												"slug": "sage-grey-finance-limited-ng"
+											},
+											{
+												"code": "50582",
+												"id": 632,
+												"name": "Shield MFB",
+												"slug": "shield-mfb-ng"
+											},
+											{
+												"code": "106",
+												"id": 750,
+												"name": "Signature Bank Ltd",
+												"slug": "signature-bank-ltd-ng"
+											},
+											{
+												"code": "51062",
+												"id": 695,
+												"name": "Solid Allianze MFB",
+												"slug": "solid-allianze-mfb"
+											},
+											{
+												"code": "50800",
+												"id": 365,
+												"name": "Solid Rock MFB",
+												"slug": "solid-rock-mfb"
+											},
+											{
+												"code": "51310",
+												"id": 72,
+												"name": "Sparkle Microfinance Bank",
+												"slug": "sparkle-microfinance-bank"
+											},
+											{
+												"code": "221",
+												"id": 14,
+												"name": "Stanbic IBTC Bank",
+												"slug": "stanbic-ibtc-bank"
+											},
+											{
+												"code": "068",
+												"id": 15,
+												"name": "Standard Chartered Bank",
+												"slug": "standard-chartered-bank"
+											},
+											{
+												"code": "090162",
+												"id": 765,
+												"name": "STANFORD MICROFINANCE BANK",
+												"slug": "stanford-microfinance-bank-ng"
+											},
+											{
+												"code": "50809",
+												"id": 779,
+												"name": "STATESIDE MICROFINANCE BANK",
+												"slug": "stateside-microfinance-bank-ng"
+											},
+											{
+												"code": "070022",
+												"id": 826,
+												"name": "STB Mortgage Bank",
+												"slug": "stb-mortgage-bank-ng"
+											},
+											{
+												"code": "51253",
+												"id": 285,
+												"name": "Stellas MFB",
+												"slug": "stellas-mfb"
+											},
+											{
+												"code": "232",
+												"id": 16,
+												"name": "Sterling Bank",
+												"slug": "sterling-bank"
+											},
+											{
+												"code": "100",
+												"id": 23,
+												"name": "Suntrust Bank",
+												"slug": "suntrust-bank"
+											},
+											{
+												"code": "50968",
+												"id": 631,
+												"name": "Supreme MFB",
+												"slug": "supreme-mfb-ng"
+											},
+											{
+												"code": "302",
+												"id": 68,
+												"name": "TAJ Bank",
+												"slug": "taj-bank"
+											},
+											{
+												"code": "51269",
+												"id": 186,
+												"name": "Tangerine Money",
+												"slug": "tangerine-money"
+											},
+											{
+												"code": "51403",
+												"id": 811,
+												"name": "TENN",
+												"slug": "tenn-ng"
+											},
+											{
+												"code": "102",
+												"id": 73,
+												"name": "Titan Bank",
+												"slug": "titan-bank"
+											},
+											{
+												"code": "090708",
+												"id": 788,
+												"name": "TransPay MFB",
+												"slug": "transpay-mfb-ng"
+											},
+											{
+												"code": "50840",
+												"id": 690,
+												"name": "U&C Microfinance Bank Ltd (U AND C MFB)",
+												"slug": "uc-microfinance-bank-ltd-u-and-c-mfb-ng"
+											},
+											{
+												"code": "090706",
+												"id": 786,
+												"name": "UCEE MFB",
+												"slug": "ucee-mfb-ng"
+											},
+											{
+												"code": "51322",
+												"id": 630,
+												"name": "Uhuru MFB",
+												"slug": "uhuru-mfb-ng"
+											},
+											{
+												"code": "50870",
+												"id": 678,
+												"name": "Unaab Microfinance Bank Limited",
+												"slug": "unaab-microfinance-bank-limited-ng"
+											},
+											{
+												"code": "50871",
+												"id": 282,
+												"name": "Unical MFB",
+												"slug": "unical-mfb"
+											},
+											{
+												"code": "51316",
+												"id": 638,
+												"name": "Unilag Microfinance Bank",
+												"slug": "unilag-microfinance-bank-ng"
+											},
+											{
+												"code": "50875",
+												"id": 823,
+												"name": "UNIMAID MICROFINANCE BANK",
+												"slug": "unimaid-microfinance-bank-ng"
+											},
+											{
+												"code": "032",
+												"id": 17,
+												"name": "Union Bank of Nigeria",
+												"slug": "union-bank-of-nigeria"
+											},
+											{
+												"code": "033",
+												"id": 18,
+												"name": "United Bank For Africa",
+												"slug": "united-bank-for-africa"
+											},
+											{
+												"code": "215",
+												"id": 19,
+												"name": "Unity Bank",
+												"slug": "unity-bank"
+											},
+											{
+												"code": "50894",
+												"id": 737,
+												"name": "Uzondu Microfinance Bank Awka Anambra State",
+												"slug": "uzondu-microfinance-bank-awka-anambra-state-ng"
+											},
+											{
+												"code": "050020",
+												"id": 725,
+												"name": "Vale Finance Limited",
+												"slug": "vale-finance"
+											},
+											{
+												"code": "566",
+												"id": 71,
+												"name": "VFD Microfinance Bank Limited",
+												"slug": "vfd"
+											},
+											{
+												"code": "51355",
+												"id": 701,
+												"name": "Waya Microfinance Bank",
+												"slug": "waya-microfinance-bank-ng"
+											},
+											{
+												"code": "035",
+												"id": 20,
+												"name": "Wema Bank",
+												"slug": "wema-bank"
+											},
+											{
+												"code": "100040",
+												"id": 827,
+												"name": "Xpress Wallet",
+												"slug": "xpress-wallet-ng"
+											},
+											{
+												"code": "594",
+												"id": 797,
+												"name": "Yes MFB",
+												"slug": "yes-mfb-ng"
+											},
+											{
+												"code": "057",
+												"id": 21,
+												"name": "Zenith Bank",
+												"slug": "zenith-bank"
+											}
+										],
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"banks": {
+											"items": {
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"id": {
+														"type": "number"
+													},
+													"name": {
+														"type": "string"
+													},
+													"slug": {
+														"type": "string"
+													}
+												},
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /banks",
+				"tags": [
+					"banks"
+				]
+			},
+			"post": {
+				"description": "Endpoint documentation for POST /banks",
+				"operationId": "post /banks",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"code": "082",
+									"id": 11,
+									"name": "Keystone Bank",
+									"slug": "keystone-bank"
+								},
+								"properties": {
+									"code": {
+										"description": "code",
+										"type": "string"
+									},
+									"id": {
+										"description": "id",
+										"type": "number"
+									},
+									"name": {
+										"description": "name",
+										"type": "string"
+									},
+									"slug": {
+										"description": "slug",
+										"type": "string"
+									}
+								},
+								"required": [
+									"id",
+									"name",
+									"code",
+									"slug"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"500": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "unable to set bank",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 500"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /banks",
+				"tags": [
+					"banks"
+				]
+			}
+		},
+		"/config": {
+			"get": {
+				"description": "Endpoint documentation for GET /config",
+				"operationId": "get /config",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"data": {
+											"bankAccounts": {
+												"one": {
+													"accountName": "firstName lastName",
+													"accountNumber": "0720913512",
+													"active": true,
+													"bank": "Gtbank"
+												}
+											},
+											"rates": {
+												"btcotp": 130000000,
+												"ngnotp": 1,
+												"otpbtc": 6.6137e-10,
+												"otpngn": 1,
+												"otpotp": 1,
+												"otpusdt": 0.000625,
+												"usdtotp": 1600
+											},
+											"supportedCrypto": {
+												"BTC": true
+											},
+											"supportedNetworks": {
+												"btc": {
+													"active": true,
+													"address": "bc1",
+													"asset": "BTC",
+													"fee": 0.001,
+													"name": ""
+												}
+											}
+										},
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"data": {
+											"properties": {
+												"bankAccounts": {
+													"properties": {
+														"one": {
+															"properties": {
+																"accountName": {
+																	"type": "string"
+																},
+																"accountNumber": {
+																	"type": "string"
+																},
+																"active": {
+																	"type": "boolean"
+																},
+																"bank": {
+																	"type": "string"
+																}
+															},
+															"type": "object"
+														}
+													},
+													"type": "object"
+												},
+												"rates": {
+													"properties": {
+														"btcotp": {
+															"type": "number"
+														},
+														"ngnotp": {
+															"type": "number"
+														},
+														"otpbtc": {
+															"type": "number"
+														},
+														"otpngn": {
+															"type": "number"
+														},
+														"otpotp": {
+															"type": "number"
+														},
+														"otpusdt": {
+															"type": "number"
+														},
+														"usdtotp": {
+															"type": "number"
+														}
+													},
+													"type": "object"
+												},
+												"supportedCrypto": {
+													"properties": {
+														"BTC": {
+															"type": "boolean"
+														}
+													},
+													"type": "object"
+												},
+												"supportedNetworks": {
+													"properties": {
+														"btc": {
+															"properties": {
+																"active": {
+																	"type": "boolean"
+																},
+																"address": {
+																	"type": "string"
+																},
+																"asset": {
+																	"type": "string"
+																},
+																"fee": {
+																	"type": "number"
+																},
+																"name": {
+																	"type": "string"
+																}
+															},
+															"type": "object"
+														}
+													},
+													"type": "object"
+												}
+											},
+											"type": "object"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Invalid or expired token"
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 403"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /config",
+				"tags": [
+					"config"
+				]
+			},
+			"put": {
+				"description": "Endpoint documentation for PUT /config",
+				"operationId": "put /config",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"bankAccounts": {
+										"two": {
+											"accountName": "firstName lastName",
+											"accountNumber": "0720913512",
+											"active": true,
+											"bank": "Access bank"
+										}
+									}
+								},
+								"properties": {
+									"bankAccounts": {
+										"description": "bankAccounts",
+										"properties": {
+											"two": {
+												"properties": {
+													"accountName": {
+														"type": "string"
+													},
+													"accountNumber": {
+														"type": "string"
+													},
+													"active": {
+														"type": "boolean"
+													},
+													"bank": {
+														"type": "string"
+													}
+												},
+												"type": "object"
+											}
+										},
+										"type": "object"
+									}
+								},
+								"required": [
+									"bankAccounts"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Invalid or expired token"
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 403"
+					},
+					"500": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Create config error",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 500"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for PUT /config",
+				"tags": [
+					"config"
+				]
+			}
+		},
+		"/config/reload": {
+			"get": {
+				"description": "Endpoint documentation for GET /config/reload",
+				"operationId": "get /config/reload",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /config/reload",
+				"tags": [
+					"config"
+				]
+			}
+		},
+		"/countries": {
+			"delete": {
+				"description": "Endpoint documentation for DELETE /countries",
+				"operationId": "delete /countries",
+				"parameters": [
+					{
+						"description": "country",
+						"example": "Antigua & Barbuda",
+						"in": "query",
+						"name": "country",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for DELETE /countries",
+				"tags": [
+					"countries"
+				]
+			},
+			"get": {
+				"description": "Endpoint documentation for GET /countries",
+				"operationId": "get /countries",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"countriesList": [
+											{
+												"code": "AC",
+												"country": "Ascension Island",
+												"flag": "🇦🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AC.svg",
+												"unicode": "U+1F1E6 U+1F1E8"
+											},
+											{
+												"code": "AD",
+												"country": "Andorra",
+												"flag": "🇦🇩",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AD.svg",
+												"unicode": "U+1F1E6 U+1F1E9"
+											},
+											{
+												"code": "AE",
+												"country": "United Arab Emirates",
+												"flag": "🇦🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AE.svg",
+												"unicode": "U+1F1E6 U+1F1EA"
+											},
+											{
+												"code": "AF",
+												"country": "Afghanistan",
+												"flag": "🇦🇫",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg",
+												"unicode": "U+1F1E6 U+1F1EB"
+											},
+											{
+												"code": "AG",
+												"country": "Antigua & Barbuda",
+												"flag": "🇦🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AG.svg",
+												"unicode": "U+1F1E6 U+1F1EC"
+											},
+											{
+												"code": "AI",
+												"country": "Anguilla",
+												"flag": "🇦🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AI.svg",
+												"unicode": "U+1F1E6 U+1F1EE"
+											},
+											{
+												"code": "AL",
+												"country": "Albania",
+												"flag": "🇦🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AL.svg",
+												"unicode": "U+1F1E6 U+1F1F1"
+											},
+											{
+												"code": "AM",
+												"country": "Armenia",
+												"flag": "🇦🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AM.svg",
+												"unicode": "U+1F1E6 U+1F1F2"
+											},
+											{
+												"code": "AO",
+												"country": "Angola",
+												"flag": "🇦🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AO.svg",
+												"unicode": "U+1F1E6 U+1F1F4"
+											},
+											{
+												"code": "AQ",
+												"country": "Antarctica",
+												"flag": "🇦🇶",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AQ.svg",
+												"unicode": "U+1F1E6 U+1F1F6"
+											},
+											{
+												"code": "AR",
+												"country": "Argentina",
+												"flag": "🇦🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AR.svg",
+												"unicode": "U+1F1E6 U+1F1F7"
+											},
+											{
+												"code": "AS",
+												"country": "American Samoa",
+												"flag": "🇦🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AS.svg",
+												"unicode": "U+1F1E6 U+1F1F8"
+											},
+											{
+												"code": "AT",
+												"country": "Austria",
+												"flag": "🇦🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AT.svg",
+												"unicode": "U+1F1E6 U+1F1F9"
+											},
+											{
+												"code": "AU",
+												"country": "Australia",
+												"flag": "🇦🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AU.svg",
+												"unicode": "U+1F1E6 U+1F1FA"
+											},
+											{
+												"code": "AW",
+												"country": "Aruba",
+												"flag": "🇦🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AW.svg",
+												"unicode": "U+1F1E6 U+1F1FC"
+											},
+											{
+												"code": "AX",
+												"country": "Åland Islands",
+												"flag": "🇦🇽",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AX.svg",
+												"unicode": "U+1F1E6 U+1F1FD"
+											},
+											{
+												"code": "AZ",
+												"country": "Azerbaijan",
+												"flag": "🇦🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AZ.svg",
+												"unicode": "U+1F1E6 U+1F1FF"
+											},
+											{
+												"code": "BA",
+												"country": "Bosnia & Herzegovina",
+												"flag": "🇧🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BA.svg",
+												"unicode": "U+1F1E7 U+1F1E6"
+											},
+											{
+												"code": "BB",
+												"country": "Barbados",
+												"flag": "🇧🇧",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BB.svg",
+												"unicode": "U+1F1E7 U+1F1E7"
+											},
+											{
+												"code": "BD",
+												"country": "Bangladesh",
+												"flag": "🇧🇩",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BD.svg",
+												"unicode": "U+1F1E7 U+1F1E9"
+											},
+											{
+												"code": "BE",
+												"country": "Belgium",
+												"flag": "🇧🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BE.svg",
+												"unicode": "U+1F1E7 U+1F1EA"
+											},
+											{
+												"code": "BF",
+												"country": "Burkina Faso",
+												"flag": "🇧🇫",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BF.svg",
+												"unicode": "U+1F1E7 U+1F1EB"
+											},
+											{
+												"code": "BG",
+												"country": "Bulgaria",
+												"flag": "🇧🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BG.svg",
+												"unicode": "U+1F1E7 U+1F1EC"
+											},
+											{
+												"code": "BH",
+												"country": "Bahrain",
+												"flag": "🇧🇭",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BH.svg",
+												"unicode": "U+1F1E7 U+1F1ED"
+											},
+											{
+												"code": "BI",
+												"country": "Burundi",
+												"flag": "🇧🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BI.svg",
+												"unicode": "U+1F1E7 U+1F1EE"
+											},
+											{
+												"code": "BJ",
+												"country": "Benin",
+												"flag": "🇧🇯",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BJ.svg",
+												"unicode": "U+1F1E7 U+1F1EF"
+											},
+											{
+												"code": "BL",
+												"country": "St. Barthélemy",
+												"flag": "🇧🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BL.svg",
+												"unicode": "U+1F1E7 U+1F1F1"
+											},
+											{
+												"code": "BM",
+												"country": "Bermuda",
+												"flag": "🇧🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BM.svg",
+												"unicode": "U+1F1E7 U+1F1F2"
+											},
+											{
+												"code": "BN",
+												"country": "Brunei",
+												"flag": "🇧🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BN.svg",
+												"unicode": "U+1F1E7 U+1F1F3"
+											},
+											{
+												"code": "BO",
+												"country": "Bolivia",
+												"flag": "🇧🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BO.svg",
+												"unicode": "U+1F1E7 U+1F1F4"
+											},
+											{
+												"code": "BQ",
+												"country": "Caribbean Netherlands",
+												"flag": "🇧🇶",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BQ.svg",
+												"unicode": "U+1F1E7 U+1F1F6"
+											},
+											{
+												"code": "BR",
+												"country": "Brazil",
+												"flag": "🇧🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BR.svg",
+												"unicode": "U+1F1E7 U+1F1F7"
+											},
+											{
+												"code": "BS",
+												"country": "Bahamas",
+												"flag": "🇧🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BS.svg",
+												"unicode": "U+1F1E7 U+1F1F8"
+											},
+											{
+												"code": "BT",
+												"country": "Bhutan",
+												"flag": "🇧🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BT.svg",
+												"unicode": "U+1F1E7 U+1F1F9"
+											},
+											{
+												"code": "BV",
+												"country": "Bouvet Island",
+												"flag": "🇧🇻",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BV.svg",
+												"unicode": "U+1F1E7 U+1F1FB"
+											},
+											{
+												"code": "BW",
+												"country": "Botswana",
+												"flag": "🇧🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BW.svg",
+												"unicode": "U+1F1E7 U+1F1FC"
+											},
+											{
+												"code": "BY",
+												"country": "Belarus",
+												"flag": "🇧🇾",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BY.svg",
+												"unicode": "U+1F1E7 U+1F1FE"
+											},
+											{
+												"code": "BZ",
+												"country": "Belize",
+												"flag": "🇧🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/BZ.svg",
+												"unicode": "U+1F1E7 U+1F1FF"
+											},
+											{
+												"code": "CA",
+												"country": "Canada",
+												"flag": "🇨🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CA.svg",
+												"unicode": "U+1F1E8 U+1F1E6"
+											},
+											{
+												"code": "CC",
+												"country": "Cocos (Keeling) Islands",
+												"flag": "🇨🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CC.svg",
+												"unicode": "U+1F1E8 U+1F1E8"
+											},
+											{
+												"code": "CD",
+												"country": "Congo - Kinshasa",
+												"flag": "🇨🇩",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CD.svg",
+												"unicode": "U+1F1E8 U+1F1E9"
+											},
+											{
+												"code": "CF",
+												"country": "Central African Republic",
+												"flag": "🇨🇫",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CF.svg",
+												"unicode": "U+1F1E8 U+1F1EB"
+											},
+											{
+												"code": "CG",
+												"country": "Congo - Brazzaville",
+												"flag": "🇨🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CG.svg",
+												"unicode": "U+1F1E8 U+1F1EC"
+											},
+											{
+												"code": "CH",
+												"country": "Switzerland",
+												"flag": "🇨🇭",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CH.svg",
+												"unicode": "U+1F1E8 U+1F1ED"
+											},
+											{
+												"code": "CI",
+												"country": "Côte d’Ivoire",
+												"flag": "🇨🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CI.svg",
+												"unicode": "U+1F1E8 U+1F1EE"
+											},
+											{
+												"code": "CK",
+												"country": "Cook Islands",
+												"flag": "🇨🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CK.svg",
+												"unicode": "U+1F1E8 U+1F1F0"
+											},
+											{
+												"code": "CL",
+												"country": "Chile",
+												"flag": "🇨🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CL.svg",
+												"unicode": "U+1F1E8 U+1F1F1"
+											},
+											{
+												"code": "CM",
+												"country": "Cameroon",
+												"flag": "🇨🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CM.svg",
+												"unicode": "U+1F1E8 U+1F1F2"
+											},
+											{
+												"code": "CN",
+												"country": "China",
+												"flag": "🇨🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CN.svg",
+												"unicode": "U+1F1E8 U+1F1F3"
+											},
+											{
+												"code": "CO",
+												"country": "Colombia",
+												"flag": "🇨🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CO.svg",
+												"unicode": "U+1F1E8 U+1F1F4"
+											},
+											{
+												"code": "CP",
+												"country": "Clipperton Island",
+												"flag": "🇨🇵",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CP.svg",
+												"unicode": "U+1F1E8 U+1F1F5"
+											},
+											{
+												"code": "CR",
+												"country": "Costa Rica",
+												"flag": "🇨🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CR.svg",
+												"unicode": "U+1F1E8 U+1F1F7"
+											},
+											{
+												"code": "CU",
+												"country": "Cuba",
+												"flag": "🇨🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CU.svg",
+												"unicode": "U+1F1E8 U+1F1FA"
+											},
+											{
+												"code": "CV",
+												"country": "Cape Verde",
+												"flag": "🇨🇻",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CV.svg",
+												"unicode": "U+1F1E8 U+1F1FB"
+											},
+											{
+												"code": "CW",
+												"country": "Curaçao",
+												"flag": "🇨🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CW.svg",
+												"unicode": "U+1F1E8 U+1F1FC"
+											},
+											{
+												"code": "CX",
+												"country": "Christmas Island",
+												"flag": "🇨🇽",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CX.svg",
+												"unicode": "U+1F1E8 U+1F1FD"
+											},
+											{
+												"code": "CY",
+												"country": "Cyprus",
+												"flag": "🇨🇾",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CY.svg",
+												"unicode": "U+1F1E8 U+1F1FE"
+											},
+											{
+												"code": "CZ",
+												"country": "Czechia",
+												"flag": "🇨🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CZ.svg",
+												"unicode": "U+1F1E8 U+1F1FF"
+											},
+											{
+												"code": "DE",
+												"country": "Germany",
+												"flag": "🇩🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DE.svg",
+												"unicode": "U+1F1E9 U+1F1EA"
+											},
+											{
+												"code": "DG",
+												"country": "Diego Garcia",
+												"flag": "🇩🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DG.svg",
+												"unicode": "U+1F1E9 U+1F1EC"
+											},
+											{
+												"code": "DJ",
+												"country": "Djibouti",
+												"flag": "🇩🇯",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DJ.svg",
+												"unicode": "U+1F1E9 U+1F1EF"
+											},
+											{
+												"code": "DK",
+												"country": "Denmark",
+												"flag": "🇩🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DK.svg",
+												"unicode": "U+1F1E9 U+1F1F0"
+											},
+											{
+												"code": "DM",
+												"country": "Dominica",
+												"flag": "🇩🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DM.svg",
+												"unicode": "U+1F1E9 U+1F1F2"
+											},
+											{
+												"code": "DO",
+												"country": "Dominican Republic",
+												"flag": "🇩🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DO.svg",
+												"unicode": "U+1F1E9 U+1F1F4"
+											},
+											{
+												"code": "DZ",
+												"country": "Algeria",
+												"flag": "🇩🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DZ.svg",
+												"unicode": "U+1F1E9 U+1F1FF"
+											},
+											{
+												"code": "EA",
+												"country": "Ceuta & Melilla",
+												"flag": "🇪🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EA.svg",
+												"unicode": "U+1F1EA U+1F1E6"
+											},
+											{
+												"code": "EC",
+												"country": "Ecuador",
+												"flag": "🇪🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EC.svg",
+												"unicode": "U+1F1EA U+1F1E8"
+											},
+											{
+												"code": "EE",
+												"country": "Estonia",
+												"flag": "🇪🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EE.svg",
+												"unicode": "U+1F1EA U+1F1EA"
+											},
+											{
+												"code": "EG",
+												"country": "Egypt",
+												"flag": "🇪🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EG.svg",
+												"unicode": "U+1F1EA U+1F1EC"
+											},
+											{
+												"code": "EH",
+												"country": "Western Sahara",
+												"flag": "🇪🇭",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EH.svg",
+												"unicode": "U+1F1EA U+1F1ED"
+											},
+											{
+												"code": "ER",
+												"country": "Eritrea",
+												"flag": "🇪🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ER.svg",
+												"unicode": "U+1F1EA U+1F1F7"
+											},
+											{
+												"code": "ES",
+												"country": "Spain",
+												"flag": "🇪🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ES.svg",
+												"unicode": "U+1F1EA U+1F1F8"
+											},
+											{
+												"code": "ET",
+												"country": "Ethiopia",
+												"flag": "🇪🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ET.svg",
+												"unicode": "U+1F1EA U+1F1F9"
+											},
+											{
+												"code": "EU",
+												"country": "European Union",
+												"flag": "🇪🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/EU.svg",
+												"unicode": "U+1F1EA U+1F1FA"
+											},
+											{
+												"code": "FI",
+												"country": "Finland",
+												"flag": "🇫🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/FI.svg",
+												"unicode": "U+1F1EB U+1F1EE"
+											},
+											{
+												"code": "FJ",
+												"country": "Fiji",
+												"flag": "🇫🇯",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/FJ.svg",
+												"unicode": "U+1F1EB U+1F1EF"
+											},
+											{
+												"code": "FK",
+												"country": "Falkland Islands",
+												"flag": "🇫🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/FK.svg",
+												"unicode": "U+1F1EB U+1F1F0"
+											},
+											{
+												"code": "FM",
+												"country": "Micronesia",
+												"flag": "🇫🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/FM.svg",
+												"unicode": "U+1F1EB U+1F1F2"
+											},
+											{
+												"code": "FO",
+												"country": "Faroe Islands",
+												"flag": "🇫🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/FO.svg",
+												"unicode": "U+1F1EB U+1F1F4"
+											},
+											{
+												"code": "FR",
+												"country": "France",
+												"flag": "🇫🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/FR.svg",
+												"unicode": "U+1F1EB U+1F1F7"
+											},
+											{
+												"code": "GA",
+												"country": "Gabon",
+												"flag": "🇬🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GA.svg",
+												"unicode": "U+1F1EC U+1F1E6"
+											},
+											{
+												"code": "GB",
+												"country": "United Kingdom",
+												"flag": "🇬🇧",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GB.svg",
+												"unicode": "U+1F1EC U+1F1E7"
+											},
+											{
+												"code": "GD",
+												"country": "Grenada",
+												"flag": "🇬🇩",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GD.svg",
+												"unicode": "U+1F1EC U+1F1E9"
+											},
+											{
+												"code": "GE",
+												"country": "Georgia",
+												"flag": "🇬🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GE.svg",
+												"unicode": "U+1F1EC U+1F1EA"
+											},
+											{
+												"code": "GF",
+												"country": "French Guiana",
+												"flag": "🇬🇫",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GF.svg",
+												"unicode": "U+1F1EC U+1F1EB"
+											},
+											{
+												"code": "GG",
+												"country": "Guernsey",
+												"flag": "🇬🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GG.svg",
+												"unicode": "U+1F1EC U+1F1EC"
+											},
+											{
+												"code": "GH",
+												"country": "Ghana",
+												"flag": "🇬🇭",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GH.svg",
+												"unicode": "U+1F1EC U+1F1ED"
+											},
+											{
+												"code": "GI",
+												"country": "Gibraltar",
+												"flag": "🇬🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GI.svg",
+												"unicode": "U+1F1EC U+1F1EE"
+											},
+											{
+												"code": "GL",
+												"country": "Greenland",
+												"flag": "🇬🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GL.svg",
+												"unicode": "U+1F1EC U+1F1F1"
+											},
+											{
+												"code": "GM",
+												"country": "Gambia",
+												"flag": "🇬🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GM.svg",
+												"unicode": "U+1F1EC U+1F1F2"
+											},
+											{
+												"code": "GN",
+												"country": "Guinea",
+												"flag": "🇬🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GN.svg",
+												"unicode": "U+1F1EC U+1F1F3"
+											},
+											{
+												"code": "GP",
+												"country": "Guadeloupe",
+												"flag": "🇬🇵",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GP.svg",
+												"unicode": "U+1F1EC U+1F1F5"
+											},
+											{
+												"code": "GQ",
+												"country": "Equatorial Guinea",
+												"flag": "🇬🇶",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GQ.svg",
+												"unicode": "U+1F1EC U+1F1F6"
+											},
+											{
+												"code": "GR",
+												"country": "Greece",
+												"flag": "🇬🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GR.svg",
+												"unicode": "U+1F1EC U+1F1F7"
+											},
+											{
+												"code": "GS",
+												"country": "South Georgia & South Sandwich Islands",
+												"flag": "🇬🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GS.svg",
+												"unicode": "U+1F1EC U+1F1F8"
+											},
+											{
+												"code": "GT",
+												"country": "Guatemala",
+												"flag": "🇬🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GT.svg",
+												"unicode": "U+1F1EC U+1F1F9"
+											},
+											{
+												"code": "GU",
+												"country": "Guam",
+												"flag": "🇬🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GU.svg",
+												"unicode": "U+1F1EC U+1F1FA"
+											},
+											{
+												"code": "GW",
+												"country": "Guinea-Bissau",
+												"flag": "🇬🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GW.svg",
+												"unicode": "U+1F1EC U+1F1FC"
+											},
+											{
+												"code": "GY",
+												"country": "Guyana",
+												"flag": "🇬🇾",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GY.svg",
+												"unicode": "U+1F1EC U+1F1FE"
+											},
+											{
+												"code": "HK",
+												"country": "Hong Kong SAR China",
+												"flag": "🇭🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/HK.svg",
+												"unicode": "U+1F1ED U+1F1F0"
+											},
+											{
+												"code": "HM",
+												"country": "Heard & McDonald Islands",
+												"flag": "🇭🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/HM.svg",
+												"unicode": "U+1F1ED U+1F1F2"
+											},
+											{
+												"code": "HN",
+												"country": "Honduras",
+												"flag": "🇭🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/HN.svg",
+												"unicode": "U+1F1ED U+1F1F3"
+											},
+											{
+												"code": "HR",
+												"country": "Croatia",
+												"flag": "🇭🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/HR.svg",
+												"unicode": "U+1F1ED U+1F1F7"
+											},
+											{
+												"code": "HT",
+												"country": "Haiti",
+												"flag": "🇭🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/HT.svg",
+												"unicode": "U+1F1ED U+1F1F9"
+											},
+											{
+												"code": "HU",
+												"country": "Hungary",
+												"flag": "🇭🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/HU.svg",
+												"unicode": "U+1F1ED U+1F1FA"
+											},
+											{
+												"code": "IC",
+												"country": "Canary Islands",
+												"flag": "🇮🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IC.svg",
+												"unicode": "U+1F1EE U+1F1E8"
+											},
+											{
+												"code": "ID",
+												"country": "Indonesia",
+												"flag": "🇮🇩",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ID.svg",
+												"unicode": "U+1F1EE U+1F1E9"
+											},
+											{
+												"code": "IE",
+												"country": "Ireland",
+												"flag": "🇮🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IE.svg",
+												"unicode": "U+1F1EE U+1F1EA"
+											},
+											{
+												"code": "IL",
+												"country": "Israel",
+												"flag": "🇮🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IL.svg",
+												"unicode": "U+1F1EE U+1F1F1"
+											},
+											{
+												"code": "IM",
+												"country": "Isle of Man",
+												"flag": "🇮🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IM.svg",
+												"unicode": "U+1F1EE U+1F1F2"
+											},
+											{
+												"code": "IN",
+												"country": "India",
+												"flag": "🇮🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IN.svg",
+												"unicode": "U+1F1EE U+1F1F3"
+											},
+											{
+												"code": "IO",
+												"country": "British Indian Ocean Territory",
+												"flag": "🇮🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IO.svg",
+												"unicode": "U+1F1EE U+1F1F4"
+											},
+											{
+												"code": "IQ",
+												"country": "Iraq",
+												"flag": "🇮🇶",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IQ.svg",
+												"unicode": "U+1F1EE U+1F1F6"
+											},
+											{
+												"code": "IR",
+												"country": "Iran",
+												"flag": "🇮🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IR.svg",
+												"unicode": "U+1F1EE U+1F1F7"
+											},
+											{
+												"code": "IS",
+												"country": "Iceland",
+												"flag": "🇮🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IS.svg",
+												"unicode": "U+1F1EE U+1F1F8"
+											},
+											{
+												"code": "IT",
+												"country": "Italy",
+												"flag": "🇮🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IT.svg",
+												"unicode": "U+1F1EE U+1F1F9"
+											},
+											{
+												"code": "JE",
+												"country": "Jersey",
+												"flag": "🇯🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/JE.svg",
+												"unicode": "U+1F1EF U+1F1EA"
+											},
+											{
+												"code": "JM",
+												"country": "Jamaica",
+												"flag": "🇯🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/JM.svg",
+												"unicode": "U+1F1EF U+1F1F2"
+											},
+											{
+												"code": "JO",
+												"country": "Jordan",
+												"flag": "🇯🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/JO.svg",
+												"unicode": "U+1F1EF U+1F1F4"
+											},
+											{
+												"code": "JP",
+												"country": "Japan",
+												"flag": "🇯🇵",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/JP.svg",
+												"unicode": "U+1F1EF U+1F1F5"
+											},
+											{
+												"code": "KE",
+												"country": "Kenya",
+												"flag": "🇰🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KE.svg",
+												"unicode": "U+1F1F0 U+1F1EA"
+											},
+											{
+												"code": "KG",
+												"country": "Kyrgyzstan",
+												"flag": "🇰🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KG.svg",
+												"unicode": "U+1F1F0 U+1F1EC"
+											},
+											{
+												"code": "KH",
+												"country": "Cambodia",
+												"flag": "🇰🇭",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KH.svg",
+												"unicode": "U+1F1F0 U+1F1ED"
+											},
+											{
+												"code": "KI",
+												"country": "Kiribati",
+												"flag": "🇰🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KI.svg",
+												"unicode": "U+1F1F0 U+1F1EE"
+											},
+											{
+												"code": "KM",
+												"country": "Comoros",
+												"flag": "🇰🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KM.svg",
+												"unicode": "U+1F1F0 U+1F1F2"
+											},
+											{
+												"code": "KN",
+												"country": "St. Kitts & Nevis",
+												"flag": "🇰🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KN.svg",
+												"unicode": "U+1F1F0 U+1F1F3"
+											},
+											{
+												"code": "KP",
+												"country": "North Korea",
+												"flag": "🇰🇵",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KP.svg",
+												"unicode": "U+1F1F0 U+1F1F5"
+											},
+											{
+												"code": "KR",
+												"country": "South Korea",
+												"flag": "🇰🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KR.svg",
+												"unicode": "U+1F1F0 U+1F1F7"
+											},
+											{
+												"code": "KW",
+												"country": "Kuwait",
+												"flag": "🇰🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KW.svg",
+												"unicode": "U+1F1F0 U+1F1FC"
+											},
+											{
+												"code": "KY",
+												"country": "Cayman Islands",
+												"flag": "🇰🇾",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KY.svg",
+												"unicode": "U+1F1F0 U+1F1FE"
+											},
+											{
+												"code": "KZ",
+												"country": "Kazakhstan",
+												"flag": "🇰🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KZ.svg",
+												"unicode": "U+1F1F0 U+1F1FF"
+											},
+											{
+												"code": "LA",
+												"country": "Laos",
+												"flag": "🇱🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LA.svg",
+												"unicode": "U+1F1F1 U+1F1E6"
+											},
+											{
+												"code": "LB",
+												"country": "Lebanon",
+												"flag": "🇱🇧",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LB.svg",
+												"unicode": "U+1F1F1 U+1F1E7"
+											},
+											{
+												"code": "LC",
+												"country": "St. Lucia",
+												"flag": "🇱🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LC.svg",
+												"unicode": "U+1F1F1 U+1F1E8"
+											},
+											{
+												"code": "LI",
+												"country": "Liechtenstein",
+												"flag": "🇱🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LI.svg",
+												"unicode": "U+1F1F1 U+1F1EE"
+											},
+											{
+												"code": "LK",
+												"country": "Sri Lanka",
+												"flag": "🇱🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LK.svg",
+												"unicode": "U+1F1F1 U+1F1F0"
+											},
+											{
+												"code": "LR",
+												"country": "Liberia",
+												"flag": "🇱🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LR.svg",
+												"unicode": "U+1F1F1 U+1F1F7"
+											},
+											{
+												"code": "LS",
+												"country": "Lesotho",
+												"flag": "🇱🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LS.svg",
+												"unicode": "U+1F1F1 U+1F1F8"
+											},
+											{
+												"code": "LT",
+												"country": "Lithuania",
+												"flag": "🇱🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LT.svg",
+												"unicode": "U+1F1F1 U+1F1F9"
+											},
+											{
+												"code": "LU",
+												"country": "Luxembourg",
+												"flag": "🇱🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LU.svg",
+												"unicode": "U+1F1F1 U+1F1FA"
+											},
+											{
+												"code": "LV",
+												"country": "Latvia",
+												"flag": "🇱🇻",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LV.svg",
+												"unicode": "U+1F1F1 U+1F1FB"
+											},
+											{
+												"code": "LY",
+												"country": "Libya",
+												"flag": "🇱🇾",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/LY.svg",
+												"unicode": "U+1F1F1 U+1F1FE"
+											},
+											{
+												"code": "MA",
+												"country": "Morocco",
+												"flag": "🇲🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MA.svg",
+												"unicode": "U+1F1F2 U+1F1E6"
+											},
+											{
+												"code": "MC",
+												"country": "Monaco",
+												"flag": "🇲🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MC.svg",
+												"unicode": "U+1F1F2 U+1F1E8"
+											},
+											{
+												"code": "MD",
+												"country": "Moldova",
+												"flag": "🇲🇩",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MD.svg",
+												"unicode": "U+1F1F2 U+1F1E9"
+											},
+											{
+												"code": "ME",
+												"country": "Montenegro",
+												"flag": "🇲🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ME.svg",
+												"unicode": "U+1F1F2 U+1F1EA"
+											},
+											{
+												"code": "MF",
+												"country": "St. Martin",
+												"flag": "🇲🇫",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MF.svg",
+												"unicode": "U+1F1F2 U+1F1EB"
+											},
+											{
+												"code": "MG",
+												"country": "Madagascar",
+												"flag": "🇲🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MG.svg",
+												"unicode": "U+1F1F2 U+1F1EC"
+											},
+											{
+												"code": "MH",
+												"country": "Marshall Islands",
+												"flag": "🇲🇭",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MH.svg",
+												"unicode": "U+1F1F2 U+1F1ED"
+											},
+											{
+												"code": "MK",
+												"country": "North Macedonia",
+												"flag": "🇲🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MK.svg",
+												"unicode": "U+1F1F2 U+1F1F0"
+											},
+											{
+												"code": "ML",
+												"country": "Mali",
+												"flag": "🇲🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ML.svg",
+												"unicode": "U+1F1F2 U+1F1F1"
+											},
+											{
+												"code": "MM",
+												"country": "Myanmar (Burma)",
+												"flag": "🇲🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MM.svg",
+												"unicode": "U+1F1F2 U+1F1F2"
+											},
+											{
+												"code": "MN",
+												"country": "Mongolia",
+												"flag": "🇲🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MN.svg",
+												"unicode": "U+1F1F2 U+1F1F3"
+											},
+											{
+												"code": "MO",
+												"country": "Macao SAR China",
+												"flag": "🇲🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MO.svg",
+												"unicode": "U+1F1F2 U+1F1F4"
+											},
+											{
+												"code": "MP",
+												"country": "Northern Mariana Islands",
+												"flag": "🇲🇵",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MP.svg",
+												"unicode": "U+1F1F2 U+1F1F5"
+											},
+											{
+												"code": "MQ",
+												"country": "Martinique",
+												"flag": "🇲🇶",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MQ.svg",
+												"unicode": "U+1F1F2 U+1F1F6"
+											},
+											{
+												"code": "MR",
+												"country": "Mauritania",
+												"flag": "🇲🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MR.svg",
+												"unicode": "U+1F1F2 U+1F1F7"
+											},
+											{
+												"code": "MS",
+												"country": "Montserrat",
+												"flag": "🇲🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MS.svg",
+												"unicode": "U+1F1F2 U+1F1F8"
+											},
+											{
+												"code": "MT",
+												"country": "Malta",
+												"flag": "🇲🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MT.svg",
+												"unicode": "U+1F1F2 U+1F1F9"
+											},
+											{
+												"code": "MU",
+												"country": "Mauritius",
+												"flag": "🇲🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MU.svg",
+												"unicode": "U+1F1F2 U+1F1FA"
+											},
+											{
+												"code": "MV",
+												"country": "Maldives",
+												"flag": "🇲🇻",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MV.svg",
+												"unicode": "U+1F1F2 U+1F1FB"
+											},
+											{
+												"code": "MW",
+												"country": "Malawi",
+												"flag": "🇲🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MW.svg",
+												"unicode": "U+1F1F2 U+1F1FC"
+											},
+											{
+												"code": "MX",
+												"country": "Mexico",
+												"flag": "🇲🇽",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MX.svg",
+												"unicode": "U+1F1F2 U+1F1FD"
+											},
+											{
+												"code": "MY",
+												"country": "Malaysia",
+												"flag": "🇲🇾",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MY.svg",
+												"unicode": "U+1F1F2 U+1F1FE"
+											},
+											{
+												"code": "MZ",
+												"country": "Mozambique",
+												"flag": "🇲🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MZ.svg",
+												"unicode": "U+1F1F2 U+1F1FF"
+											},
+											{
+												"code": "NA",
+												"country": "Namibia",
+												"flag": "🇳🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NA.svg",
+												"unicode": "U+1F1F3 U+1F1E6"
+											},
+											{
+												"code": "NC",
+												"country": "New Caledonia",
+												"flag": "🇳🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NC.svg",
+												"unicode": "U+1F1F3 U+1F1E8"
+											},
+											{
+												"code": "NE",
+												"country": "Niger",
+												"flag": "🇳🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NE.svg",
+												"unicode": "U+1F1F3 U+1F1EA"
+											},
+											{
+												"code": "NF",
+												"country": "Norfolk Island",
+												"flag": "🇳🇫",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NF.svg",
+												"unicode": "U+1F1F3 U+1F1EB"
+											},
+											{
+												"code": "NG",
+												"country": "Nigeria",
+												"flag": "🇳🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NG.svg",
+												"unicode": "U+1F1F3 U+1F1EC"
+											},
+											{
+												"code": "NI",
+												"country": "Nicaragua",
+												"flag": "🇳🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NI.svg",
+												"unicode": "U+1F1F3 U+1F1EE"
+											},
+											{
+												"code": "NL",
+												"country": "Netherlands",
+												"flag": "🇳🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NL.svg",
+												"unicode": "U+1F1F3 U+1F1F1"
+											},
+											{
+												"code": "NO",
+												"country": "Norway",
+												"flag": "🇳🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NO.svg",
+												"unicode": "U+1F1F3 U+1F1F4"
+											},
+											{
+												"code": "NP",
+												"country": "Nepal",
+												"flag": "🇳🇵",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NP.svg",
+												"unicode": "U+1F1F3 U+1F1F5"
+											},
+											{
+												"code": "NR",
+												"country": "Nauru",
+												"flag": "🇳🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NR.svg",
+												"unicode": "U+1F1F3 U+1F1F7"
+											},
+											{
+												"code": "NU",
+												"country": "Niue",
+												"flag": "🇳🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NU.svg",
+												"unicode": "U+1F1F3 U+1F1FA"
+											},
+											{
+												"code": "NZ",
+												"country": "New Zealand",
+												"flag": "🇳🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NZ.svg",
+												"unicode": "U+1F1F3 U+1F1FF"
+											},
+											{
+												"code": "OM",
+												"country": "Oman",
+												"flag": "🇴🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/OM.svg",
+												"unicode": "U+1F1F4 U+1F1F2"
+											},
+											{
+												"code": "PA",
+												"country": "Panama",
+												"flag": "🇵🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PA.svg",
+												"unicode": "U+1F1F5 U+1F1E6"
+											},
+											{
+												"code": "PE",
+												"country": "Peru",
+												"flag": "🇵🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PE.svg",
+												"unicode": "U+1F1F5 U+1F1EA"
+											},
+											{
+												"code": "PF",
+												"country": "French Polynesia",
+												"flag": "🇵🇫",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PF.svg",
+												"unicode": "U+1F1F5 U+1F1EB"
+											},
+											{
+												"code": "PG",
+												"country": "Papua New Guinea",
+												"flag": "🇵🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PG.svg",
+												"unicode": "U+1F1F5 U+1F1EC"
+											},
+											{
+												"code": "PH",
+												"country": "Philippines",
+												"flag": "🇵🇭",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PH.svg",
+												"unicode": "U+1F1F5 U+1F1ED"
+											},
+											{
+												"code": "PK",
+												"country": "Pakistan",
+												"flag": "🇵🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PK.svg",
+												"unicode": "U+1F1F5 U+1F1F0"
+											},
+											{
+												"code": "PL",
+												"country": "Poland",
+												"flag": "🇵🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PL.svg",
+												"unicode": "U+1F1F5 U+1F1F1"
+											},
+											{
+												"code": "PM",
+												"country": "St. Pierre & Miquelon",
+												"flag": "🇵🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PM.svg",
+												"unicode": "U+1F1F5 U+1F1F2"
+											},
+											{
+												"code": "PN",
+												"country": "Pitcairn Islands",
+												"flag": "🇵🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PN.svg",
+												"unicode": "U+1F1F5 U+1F1F3"
+											},
+											{
+												"code": "PR",
+												"country": "Puerto Rico",
+												"flag": "🇵🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PR.svg",
+												"unicode": "U+1F1F5 U+1F1F7"
+											},
+											{
+												"code": "PS",
+												"country": "Palestinian Territories",
+												"flag": "🇵🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PS.svg",
+												"unicode": "U+1F1F5 U+1F1F8"
+											},
+											{
+												"code": "PT",
+												"country": "Portugal",
+												"flag": "🇵🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PT.svg",
+												"unicode": "U+1F1F5 U+1F1F9"
+											},
+											{
+												"code": "PW",
+												"country": "Palau",
+												"flag": "🇵🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PW.svg",
+												"unicode": "U+1F1F5 U+1F1FC"
+											},
+											{
+												"code": "PY",
+												"country": "Paraguay",
+												"flag": "🇵🇾",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PY.svg",
+												"unicode": "U+1F1F5 U+1F1FE"
+											},
+											{
+												"code": "QA",
+												"country": "Qatar",
+												"flag": "🇶🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/QA.svg",
+												"unicode": "U+1F1F6 U+1F1E6"
+											},
+											{
+												"code": "RE",
+												"country": "Réunion",
+												"flag": "🇷🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/RE.svg",
+												"unicode": "U+1F1F7 U+1F1EA"
+											},
+											{
+												"code": "RO",
+												"country": "Romania",
+												"flag": "🇷🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/RO.svg",
+												"unicode": "U+1F1F7 U+1F1F4"
+											},
+											{
+												"code": "RS",
+												"country": "Serbia",
+												"flag": "🇷🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/RS.svg",
+												"unicode": "U+1F1F7 U+1F1F8"
+											},
+											{
+												"code": "RU",
+												"country": "Russia",
+												"flag": "🇷🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/RU.svg",
+												"unicode": "U+1F1F7 U+1F1FA"
+											},
+											{
+												"code": "RW",
+												"country": "Rwanda",
+												"flag": "🇷🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/RW.svg",
+												"unicode": "U+1F1F7 U+1F1FC"
+											},
+											{
+												"code": "SA",
+												"country": "Saudi Arabia",
+												"flag": "🇸🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SA.svg",
+												"unicode": "U+1F1F8 U+1F1E6"
+											},
+											{
+												"code": "SB",
+												"country": "Solomon Islands",
+												"flag": "🇸🇧",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SB.svg",
+												"unicode": "U+1F1F8 U+1F1E7"
+											},
+											{
+												"code": "SC",
+												"country": "Seychelles",
+												"flag": "🇸🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SC.svg",
+												"unicode": "U+1F1F8 U+1F1E8"
+											},
+											{
+												"code": "SD",
+												"country": "Sudan",
+												"flag": "🇸🇩",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SD.svg",
+												"unicode": "U+1F1F8 U+1F1E9"
+											},
+											{
+												"code": "SE",
+												"country": "Sweden",
+												"flag": "🇸🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SE.svg",
+												"unicode": "U+1F1F8 U+1F1EA"
+											},
+											{
+												"code": "SG",
+												"country": "Singapore",
+												"flag": "🇸🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SG.svg",
+												"unicode": "U+1F1F8 U+1F1EC"
+											},
+											{
+												"code": "SH",
+												"country": "St. Helena",
+												"flag": "🇸🇭",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SH.svg",
+												"unicode": "U+1F1F8 U+1F1ED"
+											},
+											{
+												"code": "SI",
+												"country": "Slovenia",
+												"flag": "🇸🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SI.svg",
+												"unicode": "U+1F1F8 U+1F1EE"
+											},
+											{
+												"code": "SJ",
+												"country": "Svalbard & Jan Mayen",
+												"flag": "🇸🇯",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SJ.svg",
+												"unicode": "U+1F1F8 U+1F1EF"
+											},
+											{
+												"code": "SK",
+												"country": "Slovakia",
+												"flag": "🇸🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SK.svg",
+												"unicode": "U+1F1F8 U+1F1F0"
+											},
+											{
+												"code": "SL",
+												"country": "Sierra Leone",
+												"flag": "🇸🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SL.svg",
+												"unicode": "U+1F1F8 U+1F1F1"
+											},
+											{
+												"code": "SM",
+												"country": "San Marino",
+												"flag": "🇸🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SM.svg",
+												"unicode": "U+1F1F8 U+1F1F2"
+											},
+											{
+												"code": "SN",
+												"country": "Senegal",
+												"flag": "🇸🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SN.svg",
+												"unicode": "U+1F1F8 U+1F1F3"
+											},
+											{
+												"code": "SO",
+												"country": "Somalia",
+												"flag": "🇸🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SO.svg",
+												"unicode": "U+1F1F8 U+1F1F4"
+											},
+											{
+												"code": "SR",
+												"country": "Suricountry",
+												"flag": "🇸🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SR.svg",
+												"unicode": "U+1F1F8 U+1F1F7"
+											},
+											{
+												"code": "SS",
+												"country": "South Sudan",
+												"flag": "🇸🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SS.svg",
+												"unicode": "U+1F1F8 U+1F1F8"
+											},
+											{
+												"code": "ST",
+												"country": "São Tomé & Príncipe",
+												"flag": "🇸🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ST.svg",
+												"unicode": "U+1F1F8 U+1F1F9"
+											},
+											{
+												"code": "SV",
+												"country": "El Salvador",
+												"flag": "🇸🇻",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SV.svg",
+												"unicode": "U+1F1F8 U+1F1FB"
+											},
+											{
+												"code": "SX",
+												"country": "Sint Maarten",
+												"flag": "🇸🇽",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SX.svg",
+												"unicode": "U+1F1F8 U+1F1FD"
+											},
+											{
+												"code": "SY",
+												"country": "Syria",
+												"flag": "🇸🇾",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SY.svg",
+												"unicode": "U+1F1F8 U+1F1FE"
+											},
+											{
+												"code": "SZ",
+												"country": "Eswatini",
+												"flag": "🇸🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SZ.svg",
+												"unicode": "U+1F1F8 U+1F1FF"
+											},
+											{
+												"code": "TA",
+												"country": "Tristan da Cunha",
+												"flag": "🇹🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TA.svg",
+												"unicode": "U+1F1F9 U+1F1E6"
+											},
+											{
+												"code": "TC",
+												"country": "Turks & Caicos Islands",
+												"flag": "🇹🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TC.svg",
+												"unicode": "U+1F1F9 U+1F1E8"
+											},
+											{
+												"code": "TD",
+												"country": "Chad",
+												"flag": "🇹🇩",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TD.svg",
+												"unicode": "U+1F1F9 U+1F1E9"
+											},
+											{
+												"code": "TF",
+												"country": "French Southern Territories",
+												"flag": "🇹🇫",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TF.svg",
+												"unicode": "U+1F1F9 U+1F1EB"
+											},
+											{
+												"code": "TG",
+												"country": "Togo",
+												"flag": "🇹🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TG.svg",
+												"unicode": "U+1F1F9 U+1F1EC"
+											},
+											{
+												"code": "TH",
+												"country": "Thailand",
+												"flag": "🇹🇭",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TH.svg",
+												"unicode": "U+1F1F9 U+1F1ED"
+											},
+											{
+												"code": "TJ",
+												"country": "Tajikistan",
+												"flag": "🇹🇯",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TJ.svg",
+												"unicode": "U+1F1F9 U+1F1EF"
+											},
+											{
+												"code": "TK",
+												"country": "Tokelau",
+												"flag": "🇹🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TK.svg",
+												"unicode": "U+1F1F9 U+1F1F0"
+											},
+											{
+												"code": "TL",
+												"country": "Timor-Leste",
+												"flag": "🇹🇱",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TL.svg",
+												"unicode": "U+1F1F9 U+1F1F1"
+											},
+											{
+												"code": "TM",
+												"country": "Turkmenistan",
+												"flag": "🇹🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TM.svg",
+												"unicode": "U+1F1F9 U+1F1F2"
+											},
+											{
+												"code": "TN",
+												"country": "Tunisia",
+												"flag": "🇹🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TN.svg",
+												"unicode": "U+1F1F9 U+1F1F3"
+											},
+											{
+												"code": "TO",
+												"country": "Tonga",
+												"flag": "🇹🇴",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TO.svg",
+												"unicode": "U+1F1F9 U+1F1F4"
+											},
+											{
+												"code": "TR",
+												"country": "Turkey",
+												"flag": "🇹🇷",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TR.svg",
+												"unicode": "U+1F1F9 U+1F1F7"
+											},
+											{
+												"code": "TT",
+												"country": "Trinidad & Tobago",
+												"flag": "🇹🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TT.svg",
+												"unicode": "U+1F1F9 U+1F1F9"
+											},
+											{
+												"code": "TV",
+												"country": "Tuvalu",
+												"flag": "🇹🇻",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TV.svg",
+												"unicode": "U+1F1F9 U+1F1FB"
+											},
+											{
+												"code": "TW",
+												"country": "Taiwan",
+												"flag": "🇹🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TW.svg",
+												"unicode": "U+1F1F9 U+1F1FC"
+											},
+											{
+												"code": "TZ",
+												"country": "Tanzania",
+												"flag": "🇹🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TZ.svg",
+												"unicode": "U+1F1F9 U+1F1FF"
+											},
+											{
+												"code": "UA",
+												"country": "Ukraine",
+												"flag": "🇺🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UA.svg",
+												"unicode": "U+1F1FA U+1F1E6"
+											},
+											{
+												"code": "UG",
+												"country": "Uganda",
+												"flag": "🇺🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UG.svg",
+												"unicode": "U+1F1FA U+1F1EC"
+											},
+											{
+												"code": "UM",
+												"country": "U.S. Outlying Islands",
+												"flag": "🇺🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UM.svg",
+												"unicode": "U+1F1FA U+1F1F2"
+											},
+											{
+												"code": "UN",
+												"country": "United Nations",
+												"flag": "🇺🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UN.svg",
+												"unicode": "U+1F1FA U+1F1F3"
+											},
+											{
+												"code": "US",
+												"country": "United States",
+												"flag": "🇺🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/US.svg",
+												"unicode": "U+1F1FA U+1F1F8"
+											},
+											{
+												"code": "UY",
+												"country": "Uruguay",
+												"flag": "🇺🇾",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UY.svg",
+												"unicode": "U+1F1FA U+1F1FE"
+											},
+											{
+												"code": "UZ",
+												"country": "Uzbekistan",
+												"flag": "🇺🇿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UZ.svg",
+												"unicode": "U+1F1FA U+1F1FF"
+											},
+											{
+												"code": "VA",
+												"country": "Vatican City",
+												"flag": "🇻🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VA.svg",
+												"unicode": "U+1F1FB U+1F1E6"
+											},
+											{
+												"code": "VC",
+												"country": "St. Vincent & Grenadines",
+												"flag": "🇻🇨",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VC.svg",
+												"unicode": "U+1F1FB U+1F1E8"
+											},
+											{
+												"code": "VE",
+												"country": "Venezuela",
+												"flag": "🇻🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VE.svg",
+												"unicode": "U+1F1FB U+1F1EA"
+											},
+											{
+												"code": "VG",
+												"country": "British Virgin Islands",
+												"flag": "🇻🇬",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VG.svg",
+												"unicode": "U+1F1FB U+1F1EC"
+											},
+											{
+												"code": "VI",
+												"country": "U.S. Virgin Islands",
+												"flag": "🇻🇮",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VI.svg",
+												"unicode": "U+1F1FB U+1F1EE"
+											},
+											{
+												"code": "VN",
+												"country": "Vietnam",
+												"flag": "🇻🇳",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VN.svg",
+												"unicode": "U+1F1FB U+1F1F3"
+											},
+											{
+												"code": "VU",
+												"country": "Vanuatu",
+												"flag": "🇻🇺",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VU.svg",
+												"unicode": "U+1F1FB U+1F1FA"
+											},
+											{
+												"code": "WF",
+												"country": "Wallis & Futuna",
+												"flag": "🇼🇫",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/WF.svg",
+												"unicode": "U+1F1FC U+1F1EB"
+											},
+											{
+												"code": "WS",
+												"country": "Samoa",
+												"flag": "🇼🇸",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/WS.svg",
+												"unicode": "U+1F1FC U+1F1F8"
+											},
+											{
+												"code": "XK",
+												"country": "Kosovo",
+												"flag": "🇽🇰",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/XK.svg",
+												"unicode": "U+1F1FD U+1F1F0"
+											},
+											{
+												"code": "YE",
+												"country": "Yemen",
+												"flag": "🇾🇪",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/YE.svg",
+												"unicode": "U+1F1FE U+1F1EA"
+											},
+											{
+												"code": "YT",
+												"country": "Mayotte",
+												"flag": "🇾🇹",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/YT.svg",
+												"unicode": "U+1F1FE U+1F1F9"
+											},
+											{
+												"code": "ZA",
+												"country": "South Africa",
+												"flag": "🇿🇦",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ZA.svg",
+												"unicode": "U+1F1FF U+1F1E6"
+											},
+											{
+												"code": "ZM",
+												"country": "Zambia",
+												"flag": "🇿🇲",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ZM.svg",
+												"unicode": "U+1F1FF U+1F1F2"
+											},
+											{
+												"code": "ZW",
+												"country": "Zimbabwe",
+												"flag": "🇿🇼",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ZW.svg",
+												"unicode": "U+1F1FF U+1F1FC"
+											},
+											{
+												"code": "ENGLAND",
+												"country": "England",
+												"flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ENGLAND.svg",
+												"unicode": "U+1F3F4 U+E0067 U+E0062 U+E0065 U+E006E U+E0067 U+E007F"
+											},
+											{
+												"code": "SCOTLAND",
+												"country": "Scotland",
+												"flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SCOTLAND.svg",
+												"unicode": "U+1F3F4 U+E0067 U+E0062 U+E0073 U+E0063 U+E0074 U+E007F"
+											},
+											{
+												"code": "WALES",
+												"country": "Wales",
+												"flag": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
+												"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/WALES.svg",
+												"unicode": "U+1F3F4 U+E0067 U+E0062 U+E0077 U+E006C U+E0073 U+E007F"
+											}
+										],
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"countriesList": {
+											"items": {
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"country": {
+														"type": "string"
+													},
+													"flag": {
+														"type": "string"
+													},
+													"image": {
+														"enum": [
+															"https",
+															"//cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AC.svg"
+														],
+														"type": "string"
+													},
+													"unicode": {
+														"type": "string"
+													}
+												},
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /countries",
+				"tags": [
+					"countries"
+				]
+			},
+			"post": {
+				"description": "Endpoint documentation for POST /countries",
+				"operationId": "post /countries",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"code": "AG",
+									"country": "Antigua & Barbuda",
+									"flag": "🇦🇬",
+									"image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AG.svg",
+									"unicode": "U+1F1E6 U+1F1EC"
+								},
+								"properties": {
+									"code": {
+										"description": "code",
+										"type": "string"
+									},
+									"country": {
+										"description": "country",
+										"type": "string"
+									},
+									"flag": {
+										"description": "flag",
+										"type": "string"
+									},
+									"image": {
+										"description": "image",
+										"type": "string"
+									},
+									"unicode": {
+										"description": "unicode",
+										"type": "string"
+									}
+								},
+								"required": [
+									"country",
+									"code",
+									"flag",
+									"unicode",
+									"image"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Invalid or expired token"
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 403"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /countries",
+				"tags": [
+					"countries"
+				]
+			}
+		},
+		"/faq": {
+			"delete": {
+				"description": "Endpoint documentation for DELETE /faq",
+				"operationId": "delete /faq",
+				"parameters": [
+					{
+						"description": "faqId",
+						"example": "b32c90a5f9a54d05b0676cc43724da6",
+						"in": "query",
+						"name": "faqId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for DELETE /faq",
+				"tags": [
+					"faq"
+				]
+			},
+			"get": {
+				"description": "Endpoint documentation for GET /faq",
+				"operationId": "get /faq",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"__v": 0,
+												"_id": "682835ad26c70e8a05001e5e",
+												"answer": "A1",
+												"createdAt": "2025-05-17T07:07:25.087Z",
+												"faqId": "a75a4b95c6b74bdb89de90ef91a7812f",
+												"question": "Q1",
+												"updatedAt": "2025-05-17T07:07:25.087Z"
+											},
+											{
+												"__v": 0,
+												"_id": "682835d726c70e8a05001e60",
+												"answer": "A2",
+												"createdAt": "2025-05-17T07:08:07.175Z",
+												"faqId": "b32c90a5f9a54d05b0676cc43724da66",
+												"question": "Q2",
+												"updatedAt": "2025-05-17T07:08:07.175Z"
+											}
+										],
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"properties": {
+													"__v": {
+														"type": "number"
+													},
+													"_id": {
+														"type": "string"
+													},
+													"answer": {
+														"type": "string"
+													},
+													"createdAt": {
+														"enum": [
+															"2025-05-17T07",
+															"07",
+															"25.087Z"
+														],
+														"type": "string"
+													},
+													"faqId": {
+														"type": "string"
+													},
+													"question": {
+														"type": "string"
+													},
+													"updatedAt": {
+														"enum": [
+															"2025-05-17T07",
+															"07",
+															"25.087Z"
+														],
+														"type": "string"
+													}
+												},
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "FAQ not found",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 404"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /faq",
+				"tags": [
+					"faq"
+				]
+			},
+			"post": {
+				"description": "Endpoint documentation for POST /faq",
+				"operationId": "post /faq",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"answer": "A2",
+									"question": "Q2"
+								},
+								"properties": {
+									"answer": {
+										"description": "answer",
+										"type": "string"
+									},
+									"question": {
+										"description": "question",
+										"type": "string"
+									}
+								},
+								"required": [
+									"question",
+									"answer"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"data": {
+											"__v": 0,
+											"_id": "682835d726c70e8a05001e60",
+											"answer": "A2",
+											"createdAt": "2025-05-17T07:08:07.175Z",
+											"faqId": "b32c90a5f9a54d05b0676cc43724da66",
+											"question": "Q2",
+											"updatedAt": "2025-05-17T07:08:07.175Z"
+										},
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"data": {
+											"properties": {
+												"__v": {
+													"type": "number"
+												},
+												"_id": {
+													"type": "string"
+												},
+												"answer": {
+													"type": "string"
+												},
+												"createdAt": {
+													"enum": [
+														"2025-05-17T07",
+														"08",
+														"07.175Z"
+													],
+													"type": "string"
+												},
+												"faqId": {
+													"type": "string"
+												},
+												"question": {
+													"type": "string"
+												},
+												"updatedAt": {
+													"enum": [
+														"2025-05-17T07",
+														"08",
+														"07.175Z"
+													],
+													"type": "string"
+												}
+											},
+											"type": "object"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /faq",
+				"tags": [
+					"faq"
+				]
+			}
+		},
+		"/notification": {
+			"delete": {
+				"description": "Endpoint documentation for DELETE /notification",
+				"operationId": "delete /notification",
+				"parameters": [
+					{
+						"description": "notificationId",
+						"example": "8ac15736ae574faa8314fa5c4f9969c3",
+						"in": "query",
+						"name": "notificationId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for DELETE /notification",
+				"tags": [
+					"notification"
+				]
+			},
+			"get": {
+				"description": "Endpoint documentation for GET /notification",
+				"operationId": "get /notification",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"__v": 0,
+												"_id": "6820dc6e6dddf257c3a4e60c",
+												"body": "your account is blocked",
+												"createdAt": "2025-05-11T17:20:46.700Z",
+												"notificationId": "9965579ff13e4b388725f0913c8c7a8c",
+												"title": "user account blocked",
+												"updatedAt": "2025-05-11T17:20:46.700Z",
+												"username": "changr"
+											}
+										],
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"properties": {
+													"__v": {
+														"type": "number"
+													},
+													"_id": {
+														"type": "string"
+													},
+													"body": {
+														"type": "string"
+													},
+													"createdAt": {
+														"enum": [
+															"2025-05-11T17",
+															"20",
+															"46.700Z"
+														],
+														"type": "string"
+													},
+													"notificationId": {
+														"type": "string"
+													},
+													"title": {
+														"type": "string"
+													},
+													"updatedAt": {
+														"enum": [
+															"2025-05-11T17",
+															"20",
+															"46.700Z"
+														],
+														"type": "string"
+													},
+													"username": {
+														"type": "string"
+													}
+												},
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /notification",
+				"tags": [
+					"notification"
+				]
+			},
+			"post": {
+				"description": "Endpoint documentation for POST /notification",
+				"operationId": "post /notification",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"body": "your account is blocked",
+									"title": "user account blocked",
+									"username": "changr"
+								},
+								"properties": {
+									"body": {
+										"description": "body",
+										"type": "string"
+									},
+									"title": {
+										"description": "title",
+										"type": "string"
+									},
+									"username": {
+										"description": "username",
+										"type": "string"
+									}
+								},
+								"required": [
+									"title",
+									"body",
+									"username"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"data": {
+											"__v": 0,
+											"_id": "6820de5987060339ecd916c5",
+											"body": "your account is blocked",
+											"createdAt": "2025-05-11T17:28:58.001Z",
+											"notificationId": "8ac15736ae574faa8314fa5c4f9969c3",
+											"title": "user account blocked",
+											"updatedAt": "2025-05-11T17:28:58.001Z",
+											"username": "changr"
+										},
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"data": {
+											"properties": {
+												"__v": {
+													"type": "number"
+												},
+												"_id": {
+													"type": "string"
+												},
+												"body": {
+													"type": "string"
+												},
+												"createdAt": {
+													"enum": [
+														"2025-05-11T17",
+														"28",
+														"58.001Z"
+													],
+													"type": "string"
+												},
+												"notificationId": {
+													"type": "string"
+												},
+												"title": {
+													"type": "string"
+												},
+												"updatedAt": {
+													"enum": [
+														"2025-05-11T17",
+														"28",
+														"58.001Z"
+													],
+													"type": "string"
+												},
+												"username": {
+													"type": "string"
+												}
+											},
+											"type": "object"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /notification",
+				"tags": [
+					"notification"
+				]
+			}
+		},
+		"/profile": {
+			"get": {
+				"description": "Endpoint documentation for GET /profile",
+				"operationId": "get /profile",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"admin": {
+											"__v": 0,
+											"_id": "67f967e358068717a5177938",
+											"active": true,
+											"createdAt": "2025-04-11T19:05:07.432Z",
+											"email": "wealthcurrencyllc+100@gmail.com",
+											"firstname": "",
+											"lastname": "",
+											"passwordHash": "",
+											"phoneNumber": "+2348138686012",
+											"pinHash": "",
+											"roles": [
+												"admin"
+											],
+											"signupCode": "3152",
+											"suspended": false,
+											"updatedAt": "2025-04-11T19:08:47.166Z",
+											"username": "onehundred",
+											"version": "v1"
+										},
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"admin": {
+											"properties": {
+												"__v": {
+													"type": "number"
+												},
+												"_id": {
+													"type": "string"
+												},
+												"active": {
+													"type": "boolean"
+												},
+												"createdAt": {
+													"enum": [
+														"2025-04-11T19",
+														"05",
+														"07.432Z"
+													],
+													"type": "string"
+												},
+												"email": {
+													"type": "string"
+												},
+												"firstname": {
+													"type": "string"
+												},
+												"lastname": {
+													"type": "string"
+												},
+												"passwordHash": {
+													"type": "string"
+												},
+												"phoneNumber": {
+													"type": "string"
+												},
+												"pinHash": {
+													"type": "string"
+												},
+												"roles": {
+													"items": {
+														"type": "string"
+													},
+													"type": "array"
+												},
+												"signupCode": {
+													"type": "string"
+												},
+												"suspended": {
+													"type": "boolean"
+												},
+												"updatedAt": {
+													"enum": [
+														"2025-04-11T19",
+														"08",
+														"47.166Z"
+													],
+													"type": "string"
+												},
+												"username": {
+													"type": "string"
+												},
+												"version": {
+													"type": "string"
+												}
+											},
+											"type": "object"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /profile",
+				"tags": [
+					"profile"
+				]
+			},
+			"post": {
+				"description": "Endpoint documentation for POST /profile",
+				"operationId": "post /profile",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"phoneNumber": "12345678901"
+								},
+								"properties": {
+									"phoneNumber": {
+										"description": "phoneNumber",
+										"type": "string"
+									}
+								},
+								"required": [
+									"phoneNumber"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /profile",
+				"tags": [
+					"profile"
+				]
+			}
+		},
+		"/transaction": {
+			"get": {
+				"description": "Endpoint documentation for GET /transaction",
+				"operationId": "get /transaction",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "successs",
+										"success": true,
+										"transactions": [
+											{
+												"__v": 0,
+												"_id": "6806a1c0d52c86f6ea5c99e6",
+												"actualFromAmount": 0,
+												"createdAt": "2025-04-21T19:51:28.809Z",
+												"expectedFromAmount": 10000,
+												"finalizedBy": "",
+												"fromCurrency": "NGN",
+												"fromUser": "changr",
+												"note": "Payments",
+												"rate": 1,
+												"status": "pending",
+												"timestamp": 1745265088802,
+												"toAmount": 0,
+												"toCurrency": "OTP",
+												"toUser": "superAdmin",
+												"transactionCategory": "fiat",
+												"transactionId": "c37e833c882d4cb5a068f10ed0f54559",
+												"transactionProofUrl": "https://google.com",
+												"transactionType": "deposit",
+												"updatedAt": "2025-04-21T19:51:28.809Z",
+												"version": "v1"
+											},
+											{
+												"__v": 0,
+												"_id": "6806a20abab283bdc08a4826",
+												"actualFromAmount": 0,
+												"createdAt": "2025-04-21T19:52:42.369Z",
+												"expectedFromAmount": 10000,
+												"finalizedBy": "",
+												"fromCurrency": "NGN",
+												"fromUser": "changr",
+												"note": "Payments",
+												"rate": 1,
+												"status": "pending",
+												"timestamp": 1745265162359,
+												"toAmount": 0,
+												"toCurrency": "OTP",
+												"toUser": "superAdmin",
+												"transactionCategory": "fiat",
+												"transactionId": "365381f6c64746c4998096655bd99097",
+												"transactionProofUrl": "https://google.com",
+												"transactionType": "deposit",
+												"updatedAt": "2025-04-21T19:52:42.369Z",
+												"version": "v1"
+											},
+											{
+												"__v": 0,
+												"_id": "6806b7f0227e52a8909ec058",
+												"actualFromAmount": 0,
+												"createdAt": "2025-04-21T21:26:08.923Z",
+												"expectedFromAmount": 10000,
+												"finalizedBy": "",
+												"fromCurrency": "NGN",
+												"fromUser": "changr",
+												"note": "Payments",
+												"rate": 1,
+												"status": "pending",
+												"timestamp": 1745270768910,
+												"toAmount": 0,
+												"toCurrency": "OTP",
+												"toUser": "superAdmin",
+												"transactionCategory": "fiat",
+												"transactionId": "b3298ae2f9534f528068172bab90098e",
+												"transactionProofUrl": "https://google.com",
+												"transactionType": "deposit",
+												"updatedAt": "2025-04-21T21:26:08.923Z",
+												"version": "v1"
+											},
+											{
+												"__v": 0,
+												"_id": "6806c153d44d63cabca1f02a",
+												"actualFromAmount": 0,
+												"createdAt": "2025-04-21T22:06:11.776Z",
+												"expectedFromAmount": 10000,
+												"finalizedBy": "",
+												"fromCurrency": "NGN",
+												"fromUser": "changr",
+												"note": "Payments",
+												"rate": 1,
+												"status": "pending",
+												"timestamp": 1745273171771,
+												"toAmount": 0,
+												"toCurrency": "OTP",
+												"toUser": "superAdmin",
+												"transactionCategory": "fiat",
+												"transactionId": "e9f2bd514cec498194010c49e23a48c8",
+												"transactionProofUrl": "https://google.com",
+												"transactionType": "deposit",
+												"updatedAt": "2025-04-21T22:06:11.776Z",
+												"version": "v1"
+											},
+											{
+												"__v": 0,
+												"_id": "6806c3cdd44d63cabca1f02d",
+												"actualFromAmount": 0,
+												"createdAt": "2025-04-21T22:16:45.738Z",
+												"expectedFromAmount": 10000,
+												"finalizedBy": "",
+												"fromCurrency": "NGN",
+												"fromUser": "changr",
+												"note": "Payments",
+												"rate": 1,
+												"status": "pending",
+												"timestamp": 1745273805734,
+												"toAmount": 0,
+												"toCurrency": "OTP",
+												"toUser": "superAdmin",
+												"transactionCategory": "fiat",
+												"transactionId": "32753d339dee4c5daef5ffe4dd0d0664",
+												"transactionProofUrl": "https://google.com",
+												"transactionType": "deposit",
+												"updatedAt": "2025-04-21T22:16:45.738Z",
+												"version": "v1"
+											},
+											{
+												"__v": 0,
+												"_id": "680732375158ffe5843b5716",
+												"actualFromAmount": 0,
+												"createdAt": "2025-04-22T06:07:51.420Z",
+												"expectedFromAmount": 10000,
+												"finalizedBy": "",
+												"fromCurrency": "NGN",
+												"fromUser": "changr",
+												"note": "Payments",
+												"rate": 1,
+												"status": "pending",
+												"timestamp": 1745302071412,
+												"toAmount": 0,
+												"toCurrency": "OTP",
+												"toUser": "superAdmin",
+												"transactionCategory": "fiat",
+												"transactionId": "8fcbfb75fff24c218de0dd358546790a",
+												"transactionProofUrl": "https://google.com",
+												"transactionType": "deposit",
+												"updatedAt": "2025-04-22T06:07:51.420Z",
+												"user": "changr",
+												"version": "v1"
+											},
+											{
+												"__v": 0,
+												"_id": "6807325d5158ffe5843b571b",
+												"actualFromAmount": 0,
+												"createdAt": "2025-04-22T06:08:29.053Z",
+												"expectedFromAmount": 10000,
+												"finalizedBy": "",
+												"fromCurrency": "NGN",
+												"fromUser": "changr",
+												"note": "Payments",
+												"rate": 1,
+												"status": "pending",
+												"timestamp": 1745302109051,
+												"toAmount": 0,
+												"toCurrency": "OTP",
+												"toUser": "superAdmin",
+												"transactionCategory": "fiat",
+												"transactionId": "718e7de47cab49a19a358ae4a9d8676a",
+												"transactionProofUrl": "https://google.com",
+												"transactionType": "deposit",
+												"updatedAt": "2025-04-22T06:08:29.053Z",
+												"user": "changr",
+												"version": "v1"
+											}
+										]
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										},
+										"transactions": {
+											"items": {
+												"properties": {
+													"__v": {
+														"type": "number"
+													},
+													"_id": {
+														"type": "string"
+													},
+													"actualFromAmount": {
+														"type": "number"
+													},
+													"createdAt": {
+														"enum": [
+															"2025-04-21T19",
+															"51",
+															"28.809Z"
+														],
+														"type": "string"
+													},
+													"expectedFromAmount": {
+														"type": "number"
+													},
+													"finalizedBy": {
+														"type": "string"
+													},
+													"fromCurrency": {
+														"type": "string"
+													},
+													"fromUser": {
+														"type": "string"
+													},
+													"note": {
+														"type": "string"
+													},
+													"rate": {
+														"type": "number"
+													},
+													"status": {
+														"type": "string"
+													},
+													"timestamp": {
+														"type": "number"
+													},
+													"toAmount": {
+														"type": "number"
+													},
+													"toCurrency": {
+														"type": "string"
+													},
+													"toUser": {
+														"type": "string"
+													},
+													"transactionCategory": {
+														"type": "string"
+													},
+													"transactionId": {
+														"type": "string"
+													},
+													"transactionProofUrl": {
+														"enum": [
+															"https",
+															"//google.com"
+														],
+														"type": "string"
+													},
+													"transactionType": {
+														"type": "string"
+													},
+													"updatedAt": {
+														"enum": [
+															"2025-04-21T19",
+															"51",
+															"28.809Z"
+														],
+														"type": "string"
+													},
+													"version": {
+														"type": "string"
+													}
+												},
+												"type": "object"
+											},
+											"type": "array"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /transaction",
+				"tags": [
+					"transaction"
+				]
+			},
+			"post": {
+				"description": "Endpoint documentation for POST /transaction",
+				"operationId": "post /transaction",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"actualFromAmount": 150,
+									"expectedFromAmount": 150,
+									"note": "bonus",
+									"toUser": "changr",
+									"transactionCategory": "bonus",
+									"transactionType": "bonus"
+								},
+								"properties": {
+									"actualFromAmount": {
+										"description": "actualFromAmount",
+										"type": "number"
+									},
+									"expectedFromAmount": {
+										"description": "expectedFromAmount",
+										"type": "number"
+									},
+									"note": {
+										"description": "note",
+										"type": "string"
+									},
+									"toUser": {
+										"description": "toUser",
+										"type": "string"
+									},
+									"transactionCategory": {
+										"description": "transactionCategory",
+										"type": "string"
+									},
+									"transactionType": {
+										"description": "transactionType",
+										"type": "string"
+									}
+								},
+								"required": [
+									"expectedFromAmount",
+									"note",
+									"transactionType",
+									"transactionCategory",
+									"toUser",
+									"actualFromAmount"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Token missing"
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 401"
+					},
+					"500": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Error",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 500"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for POST /transaction",
+				"tags": [
+					"transaction"
+				]
+			},
+			"put": {
+				"description": "Endpoint documentation for PUT /transaction",
+				"operationId": "put /transaction",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"example": {
+									"actualFromAmount": 9000,
+									"changeBalance": true,
+									"status": "completed",
+									"toAmount": 9000
+								},
+								"properties": {
+									"actualFromAmount": {
+										"description": "actualFromAmount",
+										"type": "number"
+									},
+									"changeBalance": {
+										"description": "changeBalance",
+										"type": "boolean"
+									},
+									"status": {
+										"description": "status",
+										"type": "string"
+									},
+									"toAmount": {
+										"description": "toAmount",
+										"type": "number"
+									}
+								},
+								"required": [
+									"status",
+									"actualFromAmount",
+									"toAmount",
+									"changeBalance"
+								],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "transaction not found",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 404"
+					},
+					"500": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "Error",
+										"success": false
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 500"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for PUT /transaction",
+				"tags": [
+					"transaction"
+				]
+			}
+		},
+		"/transaction/update": {
+			"get": {
+				"description": "Endpoint documentation for GET /transaction/update",
+				"operationId": "get /transaction/update",
+				"parameters": [
+					{
+						"description": "status",
+						"example": "completed",
+						"in": "query",
+						"name": "status",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "actualFromAmount",
+						"example": "1000",
+						"in": "query",
+						"name": "actualFromAmount",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "toAmount",
+						"example": "1000",
+						"in": "query",
+						"name": "toAmount",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "changeBalance",
+						"example": "true",
+						"in": "query",
+						"name": "changeBalance",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "transactionId",
+						"example": "d386306809a649848e9ab676f302d405",
+						"in": "query",
+						"name": "transactionId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"message": "success",
+										"success": true
+									},
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"type": "object"
+								}
+							}
+						},
+						"description": "Response with status code 200"
+					}
+				},
+				"security": [
+					{
+						"authorization": []
+					}
+				],
+				"summary": "Auto-generated doc for GET /transaction/update",
+				"tags": [
+					"transaction"
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:7000"
+		}
+	],
+	"components": {
+		"schemas": {
+			"BaseResponse": {
+				"properties": {
+					"data": {
+						"type": "object"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"type": "object"
+			}
+		},
+		"securitySchemes": {
+			"authorization": {
+				"bearerFormat": "JWT",
+				"scheme": "bearer",
+				"type": "http"
+			},
+			"x-api-key": {
+				"in": "header",
+				"name": "x-api-key",
+				"type": "apiKey"
+			},
+			"x-api-user": {
+				"in": "header",
+				"name": "x-api-user",
+				"type": "apiKey"
+			}
+		}
+	},
+	"security": [
+		{
+			"x-api-key": [],
+			"x-api-user": []
+		},
+		{
+			"authorization": []
+		}
+	],
+	"tags": [
+		{
+			"description": "",
+			"name": "auth"
+		},
+		{
+			"description": "",
+			"name": "banks"
+		},
+		{
+			"description": "",
+			"name": "profile"
+		},
+		{
+			"description": "",
+			"name": "config"
+		},
+		{
+			"description": "",
+			"name": "transaction"
+		},
+		{
+			"description": "",
+			"name": "balances"
+		},
+		{
+			"description": "",
+			"name": "countries"
+		},
+		{
+			"description": "",
+			"name": "notification"
+		},
+		{
+			"description": "",
+			"name": "faq"
+		}
+	]
 }

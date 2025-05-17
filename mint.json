@@ -1,0 +1,112 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "OTP",
+  "versions": ["v1"],
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+
+  "colors": {
+    "primary": "#00CC66",
+    "light": "#07C983",
+    "dark": "#00CC66",
+    "anchors": {
+      "from": "#0D9373",
+      "to": "#07C983"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "https://google.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://google.com"
+  },
+  "tabs": [
+
+  ],
+  "navigation": [
+    {
+      "group": "auth",
+      "pages": [
+        "auth/auto-generated-doc-for-get-authall-admins",
+        "auth/auto-generated-doc-for-get-authall-users",
+        "auth/auto-generated-doc-for-post-authcomplete-registration",
+        "auth/auto-generated-doc-for-post-authinvite",
+        "auth/auto-generated-doc-for-post-authlogin",
+        "auth/auto-generated-doc-for-post-authmanage-admin",
+        "auth/auto-generated-doc-for-post-authrefresh-jwt",
+        "auth/auto-generated-doc-for-post-authset-pin",
+        "auth/auto-generated-doc-for-post-authvalidate-pin"
+      ]
+    },
+    {
+      "group": "balances",
+      "pages": [
+        "balances/auto-generated-doc-for-get-balances",
+        "balances/auto-generated-doc-for-post-balances"
+      ]
+    },
+    {
+      "group": "banks",
+      "pages": [
+        "banks/auto-generated-doc-for-get-banks",
+        "banks/auto-generated-doc-for-post-banks",
+        "banks/auto-generated-doc-for-delete-banks"
+      ]
+    },
+    {
+      "group": "config",
+      "pages": [
+        "config/auto-generated-doc-for-get-config",
+        "config/auto-generated-doc-for-put-config",
+        "config/auto-generated-doc-for-get-configreload"
+      ]
+    },
+    {
+      "group": "countries",
+      "pages": [
+        "countries/auto-generated-doc-for-get-countries",
+        "countries/auto-generated-doc-for-post-countries",
+        "countries/auto-generated-doc-for-delete-countries"
+      ]
+    },
+    {
+      "group": "faq",
+      "pages": [
+        "faq/auto-generated-doc-for-get-faq",
+        "faq/auto-generated-doc-for-post-faq",
+        "faq/auto-generated-doc-for-delete-faq"
+      ]
+    },
+    {
+      "group": "notification",
+      "pages": [
+        "notification/auto-generated-doc-for-get-notification",
+        "notification/auto-generated-doc-for-post-notification",
+        "notification/auto-generated-doc-for-delete-notification"
+      ]
+    },
+    {
+      "group": "profile",
+      "pages": [
+        "profile/auto-generated-doc-for-get-profile",
+        "profile/auto-generated-doc-for-post-profile"
+      ]
+    },
+    {
+      "group": "transaction",
+      "pages": [
+        "transaction/auto-generated-doc-for-get-transaction",
+        "transaction/auto-generated-doc-for-put-transaction",
+        "transaction/auto-generated-doc-for-post-transaction",
+        "transaction/auto-generated-doc-for-get-transactionupdate"
+      ]
+    }
+  ]
+}
