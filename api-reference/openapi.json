@@ -6377,8 +6377,11 @@
 		}
 	},
 	"servers": [
-		{
-			"url": "http://localhost:7000"
+    {
+      "url": "https://otp-wqjb.onrender.com/v1"
+    },
+    {
+			"url": "http://localhost:7000/v1"
 		}
 	],
 	"components": {
