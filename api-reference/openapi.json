@@ -6378,7 +6378,7 @@
 	},
 	"servers": [
     {
-      "url": "https://otp-wqjb.onrender.com/v1"
+      "url": "https://otp-wqjb.onrender.com/v1/admin"
     },
     {
 			"url": "http://localhost:7000/v1"
